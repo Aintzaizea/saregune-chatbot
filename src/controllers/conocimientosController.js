@@ -1,6 +1,6 @@
 import * as sareguneConocimientos from "../models/conocimiento.js";
 
-// GET Conocimientos
+// GET obtener Conocimientos
 export const obtenerTodosLosConocimientos = async (req, res) => {
     try {
         const conocimientos = await sareguneConocimientos.obtenerTodosLosConocimientos();
@@ -11,3 +11,11 @@ export const obtenerTodosLosConocimientos = async (req, res) => {
 };
 
 //POST Añadir Curso
+
+
+
+
+// ACTUALIZAR Curso
+
+
+

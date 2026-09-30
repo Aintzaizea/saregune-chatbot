@@ -11,3 +11,5 @@ export async function obtenerTodosLosConocimientos() {
         throw error; 
     }
 }
+
+

@@ -25,6 +25,9 @@ app.listen(PORT, () => {
     console.log(` Servidor listo en http://localhost:${PORT}`);
 });
 
+
+
+// prueba quitar
 import { responderChat } from "./src/controllers/chatController.js";
 
 app.post("/chat", responderChat);

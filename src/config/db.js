@@ -1,24 +1,15 @@
+
 import { MongoClient } from 'mongodb';
-let db = null;
 
-export const connectDB = async () => {
-    try {
-        const client = new MongoClient(process.env.MONGODB_URI);
-        await client.connect();
-        // Nombre de la base de datos (la parte antes del ? en la URI)
-        db = client.db('saregune-chatbot');
-        console.log('Conectado a MongoDB');
-        return db;
-        
-    } catch (error) {
-        console.error('Error al conectar a MongoDB:', error.message);
-        process.exit(1);
-    }
-};
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/saregune_chatbot';
+const client = new MongoClient(url);
+let db;
 
-export const getDB = () => {
+export async function connectDB() {
     if (!db) {
-        throw new Error('Base de datos no inicializada. Llama a connectDB() primero.');
+        await client.connect();
+        db = client.db();
+        console.log("¡Conectado con éxito a MongoDB!");
     }
     return db;
-};
+}

@@ -12,6 +12,5 @@ export async function preguntarIA(mensajeUsuario) {
     });
 
     console.log(response.output_text);
-
 }
 

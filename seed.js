@@ -56,10 +56,10 @@ async function sembrarBaseDatos() {
 
     // Limpiar colección antigua si existe
     await coleccion.deleteMany({});
-    
+
     // Insertar datos nuevos
     await coleccion.insertMany(todosLosConocimientos);
-    
+
     console.log("¡Base de datos inicializada correctamente en MongoDB!");
     process.exit(0);
   } catch (error) {

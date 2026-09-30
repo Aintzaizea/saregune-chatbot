@@ -1,16 +1,23 @@
-import dotenv from 'dotenv/config';
+import 'dotenv/config';
 import OpenAI from "openai";
-import { Messages } from 'openai/resources/chat/completions.js';
-import { Content } from 'openai/resources/skills.mjs';
 
-const openai = new OpenAI({ apiKey: process.env.AI_API_KEY, baseURL: "https://api.groq.com/openai/v1", });
+const client = new OpenAI({
+    apiKey: process.env.AI_API_KEY,
+    baseURL: "https://api.groq.com/openai/v1",
+});
 
 export async function preguntarIA(mensajeUsuario) {
-    const response = await client.chat.responses.create({
-        model: "llama-3.3-70b-versatile",
-        messages: [{ role: "user", content: mensajeUsuario }],
+    const completion = await client.chat.completions.create({
+        model: "openai/gpt-oss-120b",
+        messages: [
+            {
+                role: "system",
+                content: "Eres el asistente virtual de Saregune, una asociación de e-inclusión y software libre en Vitoria-Gasteiz. Responde de forma amable, clara y muy sencilla."
+            },
+            { role: "user", content: mensajeUsuario },
+        ],
+        temperature: 0.2,
     });
 
-    console.log(response.output_text);
+    return completion.choices[0].message.content;
 }
-

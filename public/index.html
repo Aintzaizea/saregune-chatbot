@@ -1,11 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chatbot</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+
+  <!-- 1. Contenido de prueba -->
+  <main>
+    <h1>Saregune</h1>
+    <p>Formación informática gratuita y software libre en Vitoria-Gasteiz.</p>
+  </main>
+
+  <div class="chat-lanzador">
+  <!-- 2. Bocadillo y botón flotante -->
+    <!-- Bocadillo con "Kaixo" marcado como euskera -->
+<button class="chat-bocadillo" id="chat-bocadillo"><span lang="eu">Kaixo!</span> ¡Hola! Soy Sare, ¿necesitas ayuda?</button>
+    <button class="chat-abrir" id="chat-abrir">💬 Ayuda</button>
+  </div>
+
+  <!-- 3. Ventana del chat (oculta al principio) -->
+  <section class="chat-ventana" id="chat-ventana" hidden>
+
+    <!-- 3.1 Cabecera -->
+    <header class="chat-cabecera">
+      <span class="chat-avatar">🙂</span>
+      <p>Asistente de Saregune</p>
+      <button id="chat-cerrar" aria-label="Cerrar el chat">✕</button>
+    </header>
+
+    <!-- 3.2 Mensajes -->
+    <div class="chat-mensajes" id="chat-mensajes" aria-live="polite">
+
+      <div class="chat-saludo">
+        <h2>Hola, soy Sare 👋</h2>
+        <p>¿En qué puedo ayudarte?</p>
+      </div>
+
+      <div class="mensaje">
+        <p>Soy Sare, tu asistente virtual y estoy aquí para lo que necesites.</p>
+        <p>Por favor, no escribas ningún dato personal.</p>
+      </div>
+
+      <div class="mensaje">
+        <p>Elige una opción o escribe tu pregunta.</p>
+        <div class="chat-opciones">
+          <button class="chat-opcion" data-pregunta="¿Qué cursos ofrece Saregune?">📚 Cursos</button>
+          <button class="chat-opcion" data-pregunta="¿Cómo me puedo apuntar en un curso?">✍️ Inscripciones</button>
+          <button class="chat-opcion" data-pregunta="¿Qué horarios hay?">🕒 Horarios</button>
+          <button class="chat-opcion" data-pregunta="¿Cómo puedo contactar con Saregune?">📞 Contactar</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3.3 Formulario -->
+    <form id="chat-formulario" autocomplete="off">
+      <input type="text" id="chat-entrada" placeholder="Escribe aquí tu mensaje" aria-label="Escribe tu mensaje" maxlength="500" required>
+      <button type="submit">Enviar</button>
+    </form>
+
+    <!-- 3.4 Aviso final -->
+    <p class="chat-aviso">
+       Si necesitas ayuda, llámanos al 945 03 99 81 o pásate a vernos. Estaremos felices de atenderte.
+    </p>
+
+  </section>
+
+  <script src="front.js"></script>
 </body>
 </html>

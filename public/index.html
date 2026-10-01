@@ -8,26 +8,21 @@
 </head>
 <body>
 
-  <!-- 1. Contenido de prueba -->
-  <main>
-    <h1>Saregune</h1>
-    <p>Formación informática gratuita y software libre en Vitoria-Gasteiz.</p>
-  </main>
 
-  <div class="chat-lanzador">
+ 
+  <div class="chat-lanzador" >
   <!-- 2. Bocadillo y botón flotante -->
     <!-- Bocadillo con "Kaixo" marcado como euskera -->
-<button class="chat-bocadillo" id="chat-bocadillo"><span lang="eu">Kaixo!</span> ¡Hola! Soy Sare, ¿necesitas ayuda?</button>
+<button class="chat-bocadillo" id="chat-bocadillo"><span lang="eu">Kaixo!</span> ¡Hola! Soy <span style="color: #095c84;">Sare,</span> ¿Necesitas ayuda?</button>
     <button class="chat-abrir" id="chat-abrir"><img src="assets/circulos.png" alt="logo"></button>
   </div>
 
   <!-- 3. Ventana del chat (oculta al principio) -->
-  <section class="chat-ventana" id="chat-ventana" hidden>
+  <section class="chat-ventana" id="chat-ventana" >
 
     <!-- 3.1 Cabecera -->
     <header class="chat-cabecera">
-      <span class="chat-avatar">🙂</span>
-      <p>Asistente de Saregune</p>
+      <span class="chat-avatar"></span>
       <button id="chat-cerrar" aria-label="Cerrar el chat">✕</button>
     </header>
 
@@ -64,7 +59,7 @@
 
     <!-- 3.4 Aviso final -->
     <p class="chat-aviso">
-       Si necesitas ayuda, llámanos al 945 03 99 81 o pásate a vernos. Estaremos felices de atenderte.
+       Si necesitas ayuda, llámanos al 945 03 99 81 o pásate a vernos.
     </p>
 
   </section>

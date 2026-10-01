@@ -1,11 +1,21 @@
-import { obtenerTodosLosConocimientos } from '../models/conocimiento.js';
+import * as sareguneConocimientos from "../models/conocimiento.js";
 
-export async function obtenerConocimientos(req, res) {
+// GET obtener Conocimientos
+export const obtenerTodosLosConocimientos = async (req, res) => {
     try {
-        const datos = await obtenerTodosLosConocimientos();
-        res.json(datos);
+        const conocimientos = await sareguneConocimientos.obtenerTodosLosConocimientos();
+        res.json(conocimientos);
     } catch (error) {
-        console.error("Detalle del error en el controlador:", error);
-        res.status(500).json({ error: "Error al obtener conocimientos" });
+        res.status(500).json({ error: "Error al leer los conocimientos" });
     }
-}
+};
+
+//POST Añadir Curso
+
+
+
+
+// ACTUALIZAR Curso
+
+
+

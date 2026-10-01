@@ -12,7 +12,7 @@ export async function preguntarIA(mensajeUsuario) {
         messages: [
             {
                 role: "system",
-                content: "Eres el asistente virtual de Saregune, una asociación de e-inclusión y software libre en Vitoria-Gasteiz. Responde de forma amable, clara y muy sencilla."
+                content: "Eres el asistente virtual de Saregune, te llamas Sare, una asociación de e-inclusión y software libre en Vitoria-Gasteiz. Responde de forma amable, clara y muy sencilla."
             },
             { role: "user", content: mensajeUsuario },
         ],

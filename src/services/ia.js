@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import OpenAI from "openai";
+import { obtenerTodosLosConocimientos } from '../models/conocimiento.js';
 
 const client = new OpenAI({
     apiKey: process.env.AI_API_KEY,
@@ -7,13 +8,14 @@ const client = new OpenAI({
 });
 
 export async function preguntarIA(mensajeUsuario) {
-    const conocimientos = await .find({}).toArray();
+    const conocimientos = await obtenerTodosLosConocimientos();
     const contextoTexto = conocimientos.map(k => `- P: ${k.pregunta} | R: ${k.respuesta}`)
         .join('\n');
 
-
-    ({
-        model: "openai/gpt-oss-120b",
+        //llamar la Ia
+const completion = await client.chat.completions.create
+        ({
+        model: process.env.AI_MODEL || "openai/gpt-oss-120b",
         messages: [
             {
                 role: "system",

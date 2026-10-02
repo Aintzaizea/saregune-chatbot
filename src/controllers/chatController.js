@@ -1,7 +1,7 @@
 import { preguntarIA } from "../services/ia.js";
 
 export async function responderChat(req, res) {
-    const { mensajeUsuario } = req.body;  // mover 
+    const { mensajeUsuario } = req.body;  // mover ?
     // Validación básica
     if (!mensajeUsuario || mensajeUsuario.trim() === "") {
         return res.status(400).json({ error: "Faltan datos obligatorios." });

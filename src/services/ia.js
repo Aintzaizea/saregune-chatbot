@@ -7,7 +7,12 @@ const client = new OpenAI({
 });
 
 export async function preguntarIA(mensajeUsuario) {
-    const completion = await client.chat.completions.create({
+    const conocimientos = await .find({}).toArray();
+    const contextoTexto = conocimientos.map(k => `- P: ${k.pregunta} | R: ${k.respuesta}`)
+        .join('\n');
+
+
+    ({
         model: "openai/gpt-oss-120b",
         messages: [
             {
@@ -21,3 +26,4 @@ export async function preguntarIA(mensajeUsuario) {
 
     return completion.choices[0].message.content;
 }
+

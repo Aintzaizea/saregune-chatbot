@@ -1,4 +1,5 @@
 import { preguntarIA } from "../services/ia.js";
+import { obtenerTodosLosConocimientos } from "../models/conocimiento.js";
 
 export async function responderChat(req, res) {
     try {

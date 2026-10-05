@@ -13,12 +13,13 @@
   <div class="chat-lanzador" >
   <!-- 2. Bocadillo y botón flotante -->
     <!-- Bocadillo con "Kaixo" marcado como euskera -->
-<button class="chat-bocadillo" id="chat-bocadillo"><span lang="eu">Kaixo!</span> ¡Hola! Soy <span style="color: #095c84;">Sare,</span> ¿Necesitas ayuda?</button>
-    <button class="chat-abrir" id="chat-abrir"><img src="assets/circulos.png" alt="logo"></button>
-  </div>
+<button class="chat-bocadillo" id="chat-bocadillo"><span lang="eu">Kaixo!</span> ¡Hola! Soy <span class="nombre">Sare,</span> ¿Necesitas ayuda?</button>
+<!-- El alt describe la acción, no la imagen -->
+<button class="chat-abrir" id="chat-abrir"><img src="assets/circulos.png" alt="Abrir el chat de ayuda"></button>  </div>
 
   <!-- 3. Ventana del chat (oculta al principio) -->
-  <section class="chat-ventana" id="chat-ventana" >
+  <!-- Con hidden, la ventana empieza cerrada y el JS la abre -->
+<section class="chat-ventana" id="chat-ventana" hidden>
 
     <!-- 3.1 Cabecera -->
     <header class="chat-cabecera">

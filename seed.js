@@ -27,11 +27,7 @@ const todosLosConocimientos = [
   },
 
   // CURSOS Y HORARIOS (SEPTIEMBRE - DICIEMBRE 2026) 
-  {
-    categoria: "cursos_septiembre",
-    pregunta: "¿Qué cursos hay en Septiembre de 2026?",
-    respuesta: "En septiembre 2026 ofrecemos: Procesador de textos y Hoja de cálculo (9:00-10:15), Iniciación a la informática (10:30-11:45, 12:00-13:15, 15:00-16:15, 18:00-19:15), Presentaciones y Recursos Google (13:30-14:45), Multimedia online y Trámites fáciles (16:30-17:45)."
-  },
+
   {
     categoria: "cursos_octubre",
     pregunta: "¿Qué cursos hay en Octubre de 2026?",

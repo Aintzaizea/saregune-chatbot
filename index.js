@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import conocimientosRoutes from './src/routes/conocimientosRoutes.js';
-//import chatRoutes from './src/routes/chatRoutes.js';
+//import chatRoutes from './src/routes/chatRoutes.js'; //creado por lili
 
 dotenv.config();
 
@@ -17,8 +17,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Rutas de la API
+// Rutas de la API(basma)
 app.use('/api', conocimientosRoutes);
+//Ruta de chat (lili)
 //app.use('/api', chatRoutes);
 
 app.listen(PORT, () => {

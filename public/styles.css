@@ -1,25 +1,41 @@
+/* 1. Paleta de Saregune: se define una vez y se usa con var() */
+:root {
+  --color-principal: #095c84;
+  --color-principal-oscuro: #064563;
+  --color-principal-claro: #e8f3f8;
+  --color-texto: #1a1a1a;
+  --color-fondo: #ffffff;
+  /* Fuente principal del chat: se cambia solo aquí */
+/* Fuente principal del chat: se cambia solo aquí */
+--fuente: "Atkinson Hyperlegible Next", Verdana, sans-serif;
+}
+
+/* 2. Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  font-size: 18px;
-  color: #1a1a1a;
-  
+/* Los botones e inputs heredan la fuente del body */
+button,
+input {
+  font-family: inherit;
 }
+
+/* 3. Base de la página */
+body {
+  font-family: var(--fuente);
+  font-size: 18px;
+  color: var(--color-texto);
+  background-color: rgb(252, 252, 252);
+}
+
 main {
   padding: 24px;
 }
 
-/* Nombre del asistente en el bocadillo */
-.nombre {
-  color: #095c84;
-}
-/* 2. Lanzador: fijo abajo a la derecha, con bocadillo y botón en fila */
+/* 4. Lanzador: fijo abajo a la derecha, con bocadillo y botón en fila */
 .chat-lanzador {
   position: fixed;
   bottom: 30px;
@@ -30,19 +46,18 @@ main {
   z-index: 1000;
 }
 
-/* 3. Botón grande */
+/* 5. Botón grande para abrir el chat */
 .chat-abrir {
   width: 88px;
   height: 88px;
   padding: 0;
-  background: #1b433200;
+  background: transparent;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  margin-right: 22px;
   margin-bottom: 22px;
-  box-shadow: 0 6px 20px rgba(0, 90, 200, 0.65);
-  transition: box-shadow 0.2s ease
+  box-shadow: 0 6px 20px rgba(9, 92, 132, 0.65);
+  transition: box-shadow 0.2s ease;
 }
 
 .chat-abrir img {
@@ -52,30 +67,111 @@ main {
   object-fit: contain;
 }
 
-
-
-/* Hover (y foco de teclado): la sombra se hace más grande y más intensa */
-.chat-abrir:hover,
+/* Foco de teclado siempre; hover solo en dispositivos con ratón */
 .chat-abrir:focus-visible {
-  box-shadow: 0 8px 26px rgb(7, 85, 187);
+  box-shadow: 0 8px 26px var(--color-principal);
 }
 
-/* 4. Bocadillo */
+@media (hover: hover) {
+  .chat-abrir:hover {
+    box-shadow: 0 8px 26px var(--color-principal);
+  }
+}
+
+/* 6. Bocadillo del lanzador */
 .chat-bocadillo {
   max-width: min(220px, 45vw);
   padding: 12px 16px;
-  font-size: 16px;
-  color: #1a1a1a;
-  background: #ffffff;
-  border-radius: 30px 10px 40px 15px;
-  border: 2px solid #1b4332;
+  font-size: 14px;
+  color: var(--color-texto);
+  background: var(--color-fondo);
+  border-radius: 30px 0px 30px 30px;
+  border: 2px solid var(--color-principal);
   cursor: pointer;
   text-align: center;
   line-height: 1.4;
 }
 
+/* Nombre del asistente dentro del bocadillo */
+.nombre {
+  color: var(--color-principal);
+  font-weight: bold;
+}
+
+/* 7. Ventana del chat: pantalla completa en móvil (base mobile first) */
+.chat-ventana {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-fondo);
+}
+
 /* Que hidden siga mandando aunque la ventana tenga display */
 .chat-ventana[hidden] {
   display: none;
+}
+
+/* 8. Cabecera: fondo azul de Saregune con letra blanca */
+.chat-cabecera {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--color-principal);
+  color: var(--color-fondo);
+}
+
+/* 9. Botón de cerrar: grande, con texto y borde visible */
+#chat-cerrar {
+  min-height: 48px;
+  padding: 0 16px;
+  font-size: 18px;
+  color: var(--color-fondo);
+  background: transparent;
+  border: 2px solid var(--color-fondo);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#chat-cerrar:focus-visible {
+  background: var(--color-fondo);
+  color: var(--color-principal);
+}
+
+@media (hover: hover) {
+  #chat-cerrar:hover {
+    background: var(--color-fondo);
+    color: var(--color-principal);
+  }
+}
+
+/* 10. Zona de mensajes: es la única que hace scroll */
+.chat-mensajes {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+/* 11. Formulario: fijo abajo */
+#chat-formulario {
+  flex-shrink: 0;
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+#chat-entrada {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 12. Aviso final con el teléfono */
+.chat-aviso {
+  flex-shrink: 0;
+  padding: 8px 16px 16px;
+  text-align: center;
 }
 

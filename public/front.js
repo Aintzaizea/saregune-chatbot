@@ -56,7 +56,7 @@ function agregarMensaje(texto, quien) {
 }
 
 // 4. Enviar el mensaje a /api/chat y pintar la respuesta
-const MENSAJE_ERROR = 'Ahora mismo no puedo responder. Inténtalo de nuevo en unos minutos o llámanos al 945 03 99 81.';
+const MENSAJE_ERROR = 'Ahora mismo no te puedo responder. Inténtalo de nuevo en unos minutos o llámanos al 945 03 99 81.';
 
 async function enviarMensaje(texto) {
   texto = texto.trim();

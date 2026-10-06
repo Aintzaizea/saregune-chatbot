@@ -8,7 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -35,7 +36,7 @@
     <div class="chat-mensajes" id="chat-mensajes" aria-live="polite">
 
       <div class="chat-saludo">
-        <h2>Hola, soy Sare 👋</h2>
+        <h2>Hola, soy Sare <i class="fa-solid fa-hands-clapping"></i></h2>
         <p>¿En qué puedo ayudarte?</p>
       </div>
 
@@ -47,10 +48,22 @@
       <div class="mensaje">
         <p>Elige una opción o escribe tu pregunta.</p>
         <div class="chat-opciones">
-          <button class="chat-opcion" data-pregunta="¿Qué cursos ofrece Saregune?">📚 Cursos</button>
-          <button class="chat-opcion" data-pregunta="¿Cómo me puedo apuntar en un curso?">✍️ Inscripciones</button>
-          <button class="chat-opcion" data-pregunta="¿Qué horarios hay?">🕒 Horarios</button>
-          <button class="chat-opcion" data-pregunta="¿Cómo puedo contactar con Saregune?">📞 Contactar</button>
+          <button class="chat-opcion" data-pregunta="¿Qué cursos ofrece Saregune?">
+            <span aria-hidden="true"><i class="fa-solid fa-book"></i></span>
+            <span>Cursos</span>
+          </button>
+          <button class="chat-opcion" data-pregunta="¿Cómo me puedo apuntar en un curso?">
+            <span aria-hidden="true"><i class="fa-solid fa-pen"></i></span> 
+            <span>Inscripciones</span>
+          </button>
+          <button class="chat-opcion" data-pregunta="¿Qué horarios hay?">
+            <span aria-hidden="true"><i class="fa-solid fa-clock"></i></span>
+            <span>Horarios</span>
+          </button>
+          <button class="chat-opcion" data-pregunta="¿Cómo puedo contactar con Saregune?">
+            <span aria-hidden="true"><i class="fa-solid fa-phone"></i></span>
+            <span>Contacto</span>
+          </button>
         </div>
       </div>
 

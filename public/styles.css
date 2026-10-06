@@ -5,7 +5,7 @@
   --color-principal-claro: #e8f3f8;
   --color-texto: #1a1a1a;
   --color-fondo: #ffffff;
-  /* Fuente principal del chat: se cambia solo aquí */
+
 /* Fuente principal del chat: se cambia solo aquí */
 --fuente: "Atkinson Hyperlegible Next", Verdana, sans-serif;
 }
@@ -26,7 +26,7 @@ input {
 /* 3. Base de la página */
 body {
   font-family: var(--fuente);
-  font-size: 18px;
+  font-size: 16px;
   color: var(--color-texto);
   background-color: rgb(252, 252, 252);
 }
@@ -126,28 +126,27 @@ main {
 
 /* 9. Botón de cerrar: grande, con texto y borde visible */
 #chat-cerrar {
-  min-height: 48px;
-  padding: 0 16px;
-  font-size: 18px;
+  width: 48px;
+  height: 48px;
+  font-size: 32px;
+  line-height: 1;
   color: var(--color-fondo);
   background: transparent;
-  border: 2px solid var(--color-fondo);
-  border-radius: 8px;
+  border: none;
   cursor: pointer;
 }
 
 #chat-cerrar:focus-visible {
-  background: var(--color-fondo);
-  color: var(--color-principal);
+  outline: 3px solid var(--color-fondo);
+  outline-offset: 2px;
 }
 
+/* Hover solo con ratón: la X se atenúa un poco */
 @media (hover: hover) {
   #chat-cerrar:hover {
-    background: var(--color-fondo);
-    color: var(--color-principal);
+    opacity: 0.7;
   }
 }
-
 /* 10. Zona de mensajes: es la única que hace scroll */
 .chat-mensajes {
   flex: 1;
@@ -175,3 +174,43 @@ main {
   text-align: center;
 }
 
+/* 15. Opciones rápidas: cuadrícula 2x2 de botones grandes (mobile first) */
+.chat-opciones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* 15. (cambio) Opción rápida: esquinas rectas y borde inferior grueso */
+.chat-opcion {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 48px;
+  padding: 8px 10px;
+  font-size: 15px;
+  text-align: left;
+  overflow-wrap: break-word;
+  color: var(--color-principal-oscuro);
+  background: var(--color-fondo);
+  border: 1px solid var(--color-principal-claro);
+  border-top: 2px solid var(--color-principal);
+  cursor: pointer;
+  margin-top: 6px;
+  margin-bottom: 15px;
+}
+/* Foco de teclado siempre; hover solo con ratón */
+.chat-opcion:focus-visible {
+  background: var(--color-principal-claro);
+  outline: 3px solid var(--color-principal);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .chat-opcion:hover {
+    background: var(--color-principal-claro);
+  }
+}

@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Saregune Chatbot es una aplicación web desarrollada con Node.js y Express que permite interactuar con un asistente virtual para responder preguntas sobre la información del negocio. El sistema incluye una interfaz pública para usuarios y una vista administrativa para gestionar conocimientos.
+Saregune Chatbot es una aplicación web desarrollada con Node.js y Express que permite interactuar con un asistente virtual para responder preguntas sobre la asociación, sus actividades y servicios.El sistema incluye una interfaz pública para usuarios y una vista administrativa para gestionar la base de conocimientos.
 
 ## Tecnologías utilizadas
 
@@ -11,8 +11,7 @@ Saregune Chatbot es una aplicación web desarrollada con Node.js y Express que p
 - MongoDB
 - JavaScript
 - HTML
-- CSS
-- Bootstrap o estilos personalizados
+- CSS personalizado (estilos)
 
 ## Funcionalidades
 

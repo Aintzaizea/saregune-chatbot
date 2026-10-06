@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import conocimientosRoutes from './src/routes/conocimientosRoutes.js';
-import chatRoutes from './src/routes/chatRoutes.js'; 
+import chatRoutes from './src/routes/chatRoutes.js'; //creado por lili
 
 dotenv.config();
 

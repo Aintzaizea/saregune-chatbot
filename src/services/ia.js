@@ -7,13 +7,25 @@ const client = new OpenAI({
     baseURL: "https://api.groq.com/openai/v1",
 });
 
+// Convierte cualquier valor (texto, lista u objeto) en texto legible
+function aTexto (valor){
+    if (Array.isArray(valor)){
+        return valor.map(aTexto).join(", ");
+    }
+    if (valor && typeof valor === "object"){
+        return Object.entries(valor)
+        .map(([clave, v]) => `${clave}: ${aTexto}`)
+        .join(" | ");
+        return `(${interior})`;
+    }
+    return String(valor);
+}
+
 export async function preguntarIA(mensajeUsuario) {
     const conocimientos = await obtenerTodosLosConocimientos();
     
     const contextoTexto = conocimientos.map(k => `- P: ${k.pregunta} | R: ${k.respuesta}`)
         .join('\n');
-
-        console.log("CONTEXTO:\n", contextoTexto);
 
     //llamar la Ia
     const completion = await client.chat.completions.create

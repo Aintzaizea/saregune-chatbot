@@ -4,37 +4,41 @@ dotenv.config();
 import { connectDB } from './src/config/db.js';
 
 const todosLosConocimientos = [
-  //  INFORMACIÓN GENERAL Y CONTACTO 
+  // INFORMACIÓN GENERAL Y CONTACTO
   {
     categoria: "Información General",
     tipo: "institucional",
     pregunta: "¿Qué es Saregune?",
-    respuesta: "Saregune es un proyecto comunitario de Sartu Álava en el Casco Viejo de Vitoria-Gasteiz. Promovemos el uso libre y gratuito de las TIC para la inclusión social y la dinamización del barrio."
+    respuesta: "Saregune es un proyecto comunitario de Sartu Álava en el Casco Viejo de Vitoria-Gasteiz. Promovemos el uso libre y gratuito de las TIC para la inclusión social y la dinamización del barrio. Más información en: https://www.saregune.net",
+    url: "https://www.saregune.net"
   },
   {
     categoria: "Contacto",
     tipo: "contacto",
     pregunta: "¿Dónde está Saregune y cómo contactar?",
-    respuesta: "Estamos en Saregune, en Cantón de Santa María, 4 (Vitoria-Gasteiz). Horario: lunes a viernes de 9:00 a 18:00. Teléfono: 945 03 99 81 | WhatsApp: 688 85 16 41. Correo (solo si lo solicitan): info@saregune.net."
+    respuesta: "Estamos en Saregune, en Cantón de Santa María, 4 (Vitoria-Gasteiz). Horario: lunes a viernes de 9:00 a 18:00. Teléfono: 945 03 99 81 | WhatsApp: 688 85 16 41. Correo (solo si lo solicitan): info@saregune.net. Web: https://www.saregune.net/contacto/",
+    url: "https://www.saregune.net/contacto/"
   },
   {
     categoria: "Información General",
     tipo: "horario_centro",
     pregunta: "¿Qué horarios hay? ¿Cuál es el horario del centro? ¿A qué hora abre Saregune?",
-    respuesta: "El centro está abierto de lunes a viernes, de 9:00 a 18:00. Estamos en Cantón de Santa María, 4, Vitoria-Gasteiz."
+    respuesta: "El centro está abierto de lunes a viernes, de 9:00 a 18:00. Estamos en Cantón de Santa María, 4, Vitoria-Gasteiz.",
+    url: "https://www.saregune.net/contacto/"
   },
 
-  //  MENÚ GENERAL DE CURSOS (DESCOBRIMIENTO PASO A PASO) 
+  // MENÚ GENERAL DE CURSOS (DESCUBRIMIENTO PASO A PASO)
   {
     categoria: "Cursos",
     tipo: "menu_general",
     nombre: "Menú general de cursos",
-    descripcion: "Ofrecemos dos grandes tipos de formación totalmente gratuita: Cursos básicos (para el día a día) y Formación avanzada / Lanbide (para orientación laboral).",
+    descripcion: "Ofrecemos formación totalmente gratuita: Cursos básicos, Formación avanzada / Lanbide y Formación a familias.",
     pregunta: "¿Qué tipo de cursos ofrecen?",
-    respuesta: "Ofrecemos dos opciones gratuitas:\n1. Cursos básicos: Para aprender y mejorar el uso del ordenador e internet.\n2. Formación avanzada: Cursos orientados al empleo como Programación Web o Dinamización Social."
+    respuesta: "Ofrecemos varias opciones gratuitas:\n1. Cursos básicos: Para aprender a usar el ordenador e internet.\n2. Formación avanzada: Cursos orientados al empleo (Lanbide).\n3. Formación a familias: Uso seguro de internet y herramientas escolares. Consulta toda la oferta en: https://www.saregune.net/formacion/",
+    url: "https://www.saregune.net/formacion/"
   },
 
-  //  CURSOS BÁSICOS 
+  // CURSOS BÁSICOS
   {
     categoria: "Cursos",
     tipo: "basico",
@@ -47,7 +51,8 @@ const todosLosConocimientos = [
     },
     inscripcion: "La inscripción es presencial en Saregune, en Cantón de Santa María, 4.",
     pregunta: "Curso Iniciación a la informática",
-    respuesta: "Curso básico para aprender a usar el ordenador desde cero. Disponibilidad en octubre, noviembre y diciembre con varios horarios de mañana y tarde."
+    respuesta: "Curso básico para aprender a usar el ordenador desde cero. Disponibilidad en octubre, noviembre y diciembre con varios horarios de mañana y tarde. Más detalles en: https://www.saregune.net/formacion/",
+    url: "https://www.saregune.net/formacion/"
   },
   {
     categoria: "Cursos",
@@ -61,7 +66,8 @@ const todosLosConocimientos = [
     },
     inscripcion: "La inscripción es presencial en Saregune, en Cantón de Santa María, 4.",
     pregunta: "Curso Procesador de textos y Hoja de cálculo",
-    respuesta: "Aprende a crear documentos de texto y gestionar plantillas u hojas de cálculo."
+    respuesta: "Aprende a crear documentos de texto y gestionar plantillas u hojas de cálculo. Consulta más información en: https://www.saregune.net/formacion/",
+    url: "https://www.saregune.net/formacion/"
   },
   {
     categoria: "Cursos",
@@ -75,7 +81,8 @@ const todosLosConocimientos = [
     },
     inscripcion: "La inscripción es presencial en Saregune, en Cantón de Santa María, 4.",
     pregunta: "Curso Multimedia online y Trámites fáciles",
-    respuesta: "Para realizar gestiones por internet cotidianas de forma sencilla."
+    respuesta: "Para realizar gestiones por internet cotidianas de forma sencilla. Más detalles en: https://www.saregune.net/formacion/",
+    url: "https://www.saregune.net/formacion/"
   },
   {
     categoria: "Cursos",
@@ -89,10 +96,11 @@ const todosLosConocimientos = [
     },
     inscripcion: "La inscripción es presencial en Saregune, en Cantón de Santa María, 4.",
     pregunta: "Curso Recursos Google y Presentaciones",
-    respuesta: "Domina las herramientas de la nube de Google y crea diapositivas."
+    respuesta: "Domina las herramientas de la nube de Google y crea diapositivas. Más detalles en: https://www.saregune.net/formacion/",
+    url: "https://www.saregune.net/formacion/"
   },
 
-  //  FORMACIÓN AVANZADA 
+  // FORMACIÓN AVANZADA
   {
     categoria: "Cursos",
     tipo: "avanzado",
@@ -102,7 +110,8 @@ const todosLosConocimientos = [
     horario: "Lunes a viernes de 9:00 a 14:00",
     requisitos: "Desempleo/mejora de empleo (Lanbide), Bachillerato/FP2/Grado Superior o equivalente.",
     pregunta: "Curso de Programación Web",
-    respuesta: "Certificado profesional de 480h sobre desarrollo Web (HTML, CSS, JS, Node.js, MongoDB). Requiere estar inscrito en Lanbide."
+    respuesta: "Certificado profesional de 480h sobre desarrollo Web (HTML, CSS, JS, Node.js, MongoDB). Requiere inscripción en Lanbide. Más detalles e inscripciones en: https://www.saregune.net/formacion/",
+    url: "https://www.saregune.net/formacion/"
   },
   {
     categoria: "Cursos",
@@ -111,7 +120,19 @@ const todosLosConocimientos = [
     horas: 500,
     modalidad: "Presencial",
     pregunta: "Curso Dinamización Social TIC",
-    respuesta: "Formación orientada a la dinamización social e inclusión digital (500 horas)."
+    respuesta: "Formación orientada a la dinamización social e inclusión digital (500 horas). Consulta los requisitos en: https://www.saregune.net/formacion/",
+    url: "https://www.saregune.net/formacion/"
+  },
+
+  // FORMACIÓN A FAMILIAS
+  {
+    categoria: "Cursos",
+    tipo: "familias",
+    nombre: "Formación a Familias y Acompañamiento Digital",
+    descripcion: "Talleres y recursos pensados para madres, padres y tutores sobre el uso responsable de la tecnología y herramientas educativas.",
+    pregunta: "¿Tienen formación para familias o padres/madres?",
+    respuesta: "Sí, ofrecemos talleres sobre parentalidad digital, uso seguro de redes sociales e internet para menores y uso de plataformas escolares. Puedes ver todos los recursos en: https://www.saregune.net/familias/",
+    url: "https://www.saregune.net/familias/"
   }
 ];
 
@@ -121,7 +142,7 @@ async function sembrarBaseDatos() {
     const coleccion = db.collection('conocimientos');
     await coleccion.deleteMany({});
     await coleccion.insertMany(todosLosConocimientos);
-    console.log("¡Base de datos cargada correctamente con la estructura adaptada!");
+    console.log("¡Base de datos cargada correctamente con los enlaces y la sección de familias!");
     process.exit(0);
   } catch (error) {
     console.error("Error al cargar la base de datos:", error);

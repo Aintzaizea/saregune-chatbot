@@ -6,8 +6,8 @@
   --color-texto: #1a1a1a;
   --color-fondo: #ffffff;
 
-/* Fuente principal del chat: se cambia solo aquí */
---fuente: "Atkinson Hyperlegible Next", Verdana, sans-serif;
+  /* Fuente principal del chat: se cambia solo aquí */
+  --fuente: "Atkinson Hyperlegible Next", Verdana, sans-serif;
 }
 
 /* 2. Reset */
@@ -29,10 +29,12 @@ body {
   font-size: 16px;
   color: var(--color-texto);
   background-color: rgb(252, 252, 252);
+    
 }
 
 main {
   padding: 24px;
+  
 }
 
 /* 4. Lanzador: fijo abajo a la derecha, con bocadillo y botón en fila */
@@ -44,6 +46,7 @@ main {
   align-items: center;
   gap: 30px;
   z-index: 1000;
+    
 }
 
 /* 5. Botón grande para abrir el chat */
@@ -58,6 +61,7 @@ main {
   margin-bottom: 22px;
   box-shadow: 0 6px 20px rgba(9, 92, 132, 0.65);
   transition: box-shadow 0.2s ease;
+ 
 }
 
 .chat-abrir img {
@@ -90,6 +94,7 @@ main {
   cursor: pointer;
   text-align: center;
   line-height: 1.4;
+  
 }
 
 /* Nombre del asistente dentro del bocadillo */
@@ -99,18 +104,24 @@ main {
 }
 
 /* 7. Ventana del chat: pantalla completa en móvil (base mobile first) */
+
+
 .chat-ventana {
   position: fixed;
   inset: 0;
+  height: 100dvh; /* altura real visible en móvil (barra del navegador, teclado) */
   z-index: 99999;
   display: flex;
   flex-direction: column;
   background: var(--color-fondo);
+  
 }
+
 
 /* Que hidden siga mandando aunque la ventana tenga display */
 .chat-ventana[hidden] {
   display: none;
+  
 }
 
 /* 8. Cabecera: fondo azul de Saregune con letra blanca */
@@ -122,9 +133,10 @@ main {
   padding: 12px 16px;
   background: var(--color-principal);
   color: var(--color-fondo);
+  
 }
 
-/* 9. Botón de cerrar: grande, con texto y borde visible */
+/* 9. Botón de cerrar: grande, solo la X, sin recuadro */
 #chat-cerrar {
   width: 48px;
   height: 48px;
@@ -147,14 +159,56 @@ main {
     opacity: 0.7;
   }
 }
-/* 10. Zona de mensajes: es la única que hace scroll */
+
+/* 10. Zona de mensajes: la única que hace scroll. Columna con separación para alinear las burbujas */
 .chat-mensajes {
   flex: 1;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   padding: 16px;
 }
 
-/* 11. Formulario: fijo abajo */
+/* 11. Saludo grande */
+.chat-saludo h2 {
+  font-size: 1.8rem;
+  color: var(--color-principal);
+}
+
+.chat-saludo p {
+  font-size: 1.2rem;
+}
+
+/* 12. Burbuja del asistente */
+.mensaje {
+  max-width: 90%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  line-height: 1.5;
+  background: var(--color-principal-claro);
+  border-radius: 16px 16px 4px 16px;
+  
+}
+
+/* Respeta los saltos de línea que manda la IA */
+.mensaje p {
+  white-space: pre-line;
+}
+
+.mensaje p + p {
+  margin-top: 8px;
+}
+
+/* Burbuja de la persona: a la derecha y en azul */
+.mensaje.usuario {
+  align-self: flex-end;
+  color: var(--color-fondo);
+  background: var(--color-principal);
+  border-radius: 16px 16px 16px 4px;
+}
+
+/* 13. Formulario: fijo abajo */
 #chat-formulario {
   flex-shrink: 0;
   display: flex;
@@ -162,12 +216,14 @@ main {
   padding: 12px 16px;
 }
 
+/* Campo de texto: 16px o más para que el móvil no haga zoom al tocarlo */
 #chat-entrada {
   flex: 1;
   min-width: 0;
+  font-size: 16px;
 }
 
-/* 12. Aviso final con el teléfono */
+/* 14. Aviso final con el teléfono */
 .chat-aviso {
   flex-shrink: 0;
   padding: 8px 16px 16px;
@@ -182,7 +238,7 @@ main {
   margin-top: 12px;
 }
 
-/* 15. (cambio) Opción rápida: esquinas rectas y borde inferior grueso */
+/* Opción rápida: esquinas rectas y borde superior grueso */
 .chat-opcion {
   display: flex;
   flex-direction: row;
@@ -202,6 +258,7 @@ main {
   margin-top: 6px;
   margin-bottom: 15px;
 }
+
 /* Foco de teclado siempre; hover solo con ratón */
 .chat-opcion:focus-visible {
   background: var(--color-principal-claro);

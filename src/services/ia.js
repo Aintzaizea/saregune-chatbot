@@ -38,7 +38,6 @@ export async function preguntarIA(mensajeUsuario, historial = []) {
         .join("\n");
 
     // Historial limpio 
-
     const historiallimpio = (Array.isArray(historial) ? historial : []).filter
     (
             (m) =>
@@ -47,7 +46,6 @@ export async function preguntarIA(mensajeUsuario, historial = []) {
                 typeof m.content === "string",
         )
         .slice(-6);
-
 
     // Llamar la Ia
     const completion = await client.chat.completions.create({
@@ -334,3 +332,4 @@ console.log("Tokens enviados:", completion.usage?.prompt_tokens);
 
     return completion.choices[0].message.content;
 }
+

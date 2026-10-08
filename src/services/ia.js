@@ -43,7 +43,7 @@ export async function preguntarIA(mensajeUsuario, historial = []) {
     (
             (m) =>
                 m &&
-                (m.role === "user" || m.role === "assitant") &&
+                (m.role === "user" || m.role === "assistant") &&
                 typeof m.content === "string",
         )
         .slice(-10);

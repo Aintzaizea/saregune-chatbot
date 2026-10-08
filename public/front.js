@@ -40,6 +40,10 @@ botonCerrar.addEventListener('click', cerrarChat);
 function agregarMensaje(texto, quien) {
   const mensaje = document.createElement('div');
   mensaje.classList.add('mensaje');
+  // Marca el mensaje como nuevo para que entre con animación; al terminar se quita
+// la marca, así no se repite al volver a abrir el chat
+  mensaje.classList.add('nuevo');
+  mensaje.addEventListener('animationend', () => mensaje.classList.remove('nuevo'), { once: true });
   if (quien === 'usuario') {
     mensaje.classList.add('usuario');
   }

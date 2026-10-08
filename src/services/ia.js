@@ -269,10 +269,7 @@ CONTACTO
 
 📧 info@saregune.net 
 
-El correo solo puede mostrarse si la persona usuaria lo solicita explícitamente. Nunca lo muestres de forma proactiva.
-
-   
-
+El correo SOLO puede mostrarse si la persona usuaria lo solicita explícitamente. Nunca lo muestres de forma proactiva.
     
 Informacion de Saregune: ${contextoTexto}`,
             },

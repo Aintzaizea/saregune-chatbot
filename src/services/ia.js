@@ -46,7 +46,7 @@ export async function preguntarIA(mensajeUsuario, historial = []) {
                 (m.role === "user" || m.role === "assistant") &&
                 typeof m.content === "string",
         )
-        .slice(-10);
+        .slice(-6);
 
 
     // Llamar la Ia
@@ -329,6 +329,8 @@ Informacion de Saregune: ${contextoTexto}`,
         ],
         temperature: 0.2,
     });
+
+console.log("Tokens enviados:", completion.usage?.prompt_tokens); 
 
     return completion.choices[0].message.content;
 }

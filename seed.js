@@ -99,7 +99,6 @@ const todosLosConocimientos = [
     respuesta: "Domina las herramientas de la nube de Google y crea diapositivas. Más detalles en: https://www.saregune.net/formacion/",
     url: "https://www.saregune.net/formacion/"
   },
-
   // FORMACIÓN AVANZADA
   {
     categoria: "Cursos",
@@ -131,8 +130,8 @@ const todosLosConocimientos = [
     nombre: "Formación a Familias y Acompañamiento Digital",
     descripcion: "Talleres y recursos pensados para madres, padres y tutores sobre el uso responsable de la tecnología y herramientas educativas.",
     pregunta: "¿Tienen formación para familias o padres/madres?",
-    respuesta: "Sí, ofrecemos talleres sobre parentalidad digital, uso seguro de redes sociales e internet para menores y uso de plataformas escolares. Puedes ver todos los recursos en: https://www.saregune.net/familias/",
-    url: "https://www.saregune.net/familias/"
+    respuesta: "Sí, ofrecemos talleres sobre parentalidad digital, uso seguro de redes sociales e internet para menores y uso de plataformas escolares. Puedes ver todos los recursos en: https://www.saregune.net/es/category/formacion-a-familias/",
+    url: "https://www.saregune.net/es/category/formacion-a-familias/"
   }
 ];
 

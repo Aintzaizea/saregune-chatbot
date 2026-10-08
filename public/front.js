@@ -1,4 +1,5 @@
-// 1. Seleccionar los elementos de la página por su id
+// ELEMENTOS DEL CHAT -------------------------------------------------------
+// Se guardan las referencias al HTML que se usan durante toda la interacción.
 const botonAbrir = document.getElementById('chat-abrir');
 const bocadillo = document.getElementById('chat-bocadillo');
 const ventana = document.getElementById('chat-ventana');
@@ -9,10 +10,14 @@ const formulario = document.getElementById('chat-formulario');
 const entrada = document.getElementById('chat-entrada');
 const botonEnviar = formulario.querySelector('button');
 const opciones = document.querySelectorAll('.chat-opcion');
+
+// Estado local de la interfaz y de la conversación.
 let elementoQueAbrio = null;
-//const limpio = data.respuesta.replaceAll("**","");
-// 2. Abrir y cerrar la ventana del chat
-// Abrir: se muestra la ventana y se esconde el bocadillo
+const historialConversacion = [];
+let enviandoMensaje = false;
+
+// APERTURA Y CIERRE --------------------------------------------------------
+// Abre el diálogo, atenúa el fondo, bloquea el lanzador y mueve el foco a la X.
 function abrirChat() {
   elementoQueAbrio = document.activeElement;
   ventana.hidden = false;
@@ -22,7 +27,7 @@ function abrirChat() {
   botonCerrar.focus();
 }
 
-// Cerrar: se oculta la ventana y vuelve a salir el bocadillo
+// Cierra el diálogo, restablece la página y devuelve el foco al elemento original.
 function cerrarChat() {
   ventana.hidden = true;
   fondoChat.hidden = true;
@@ -31,22 +36,24 @@ function cerrarChat() {
   elementoQueAbrio?.focus();
 }
 
-// El chat solo se cierra con la X
+// El botón flotante abre el diálogo; una vez abierto, solo la X lo cierra.
 botonAbrir.addEventListener('click', () => {
   if (ventana.hidden) {
     abrirChat();
   }
 });
 
-// Bocadillo: abre la ventana
+// El bocadillo de bienvenida también sirve para abrir el chat.
 bocadillo.addEventListener('click', abrirChat);
 
-// X de la cabecera: cierra la ventana
+// La X es el único control que cierra el chat.
 botonCerrar.addEventListener('click', cerrarChat);
 
+// Mantiene la navegación por teclado dentro del diálogo modal.
 ventana.addEventListener('keydown', (evento) => {
   if (evento.key !== 'Tab') return;
 
+  // Se consideran solo los controles visibles y habilitados.
   const elementosEnfocables = Array.from(
     ventana.querySelectorAll('button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])')
   ).filter((elemento) => !elemento.disabled && elemento.getClientRects().length > 0);
@@ -62,23 +69,28 @@ ventana.addEventListener('keydown', (evento) => {
   }
 });
 
-// quien puede ser 'usuario' o 'asistente'. Devuelve la burbuja creada
+// CREACIÓN DE MENSAJES -----------------------------------------------------
+// Crea una burbuja para el texto indicado y la añade a la zona desplazable.
+// "quien" determina si el mensaje es del usuario o del asistente.
 function agregarMensaje(texto, quien) {
   const mensaje = document.createElement('div');
   mensaje.classList.add('mensaje');
-  // Marca el mensaje como nuevo para que entre con animación; al terminar se quita
-// la marca, así no se repite al volver a abrir el chat
+
+  // La clase "nuevo" activa la animación de entrada solo al crear el mensaje.
   mensaje.classList.add('nuevo');
   mensaje.addEventListener('animationend', () => mensaje.classList.remove('nuevo'), { once: true });
+
+  // Los mensajes del usuario reciben estilos y alineación propios.
   if (quien === 'usuario') {
     mensaje.classList.add('usuario');
   }
 
+  // textContent inserta texto plano, sin interpretar la respuesta como HTML.
   const parrafo = document.createElement('p');
   parrafo.textContent = texto;
-
   mensaje.appendChild(parrafo);
 
+  // Las respuestas del asistente se agrupan con el logo que queda fuera de la burbuja.
   if (quien === 'asistente') {
     const contenedor = document.createElement('div');
     contenedor.classList.add('contenedor-mensaje');
@@ -95,27 +107,40 @@ function agregarMensaje(texto, quien) {
     mensajes.appendChild(mensaje);
   }
 
-  // Bajar el scroll hasta el último mensaje
+  // Mantiene visible el mensaje que se acaba de añadir.
   mensajes.scrollTop = mensajes.scrollHeight;
   return mensaje;
 }
 
-// 4. Enviar el mensaje a /api/chat y pintar la respuesta
+// ENVÍO A LA API ----------------------------------------------------------
+// Texto que se muestra en la burbuja si la petición o la respuesta falla.
 const MENSAJE_ERROR = 'Ahora mismo no te puedo responder. Inténtalo de nuevo en unos minutos, llámanos al 945 03 99 81 o mándanos un WhatsApp al 688 85 16 41';
 
+// Envía el texto a la API y actualiza la burbuja provisional con la respuesta.
 async function enviarMensaje(texto) {
   texto = texto.trim();
-  if (texto === '') return;
 
+  // Ignora entradas vacías y evita peticiones simultáneas para no desordenar el historial.
+  if (texto === '' || enviandoMensaje) return;
+
+  enviandoMensaje = true;
   agregarMensaje(texto, 'usuario');
-  botonEnviar.disabled = true;
 
-  // Burbuja provisional que luego se rellena con la respuesta
+  // Bloquea los controles de envío mientras la API procesa la consulta.
+  botonEnviar.disabled = true;
+  opciones.forEach((opcion) => {
+    opcion.disabled = true;
+  });
+
+  // Muestra inmediatamente el indicador animado de espera.
   const burbuja = agregarMensaje('Escribiendo...', 'asistente');
   burbuja.classList.add('escribiendo');
   const parrafo = burbuja.querySelector('p');
   parrafo.textContent = 'Escribiendo ';
   parrafo.setAttribute('aria-label', 'Escribiendo ');
+
+  // Los puntos son decorativos para lectores de pantalla: el texto accesible
+  // se mantiene en la etiqueta del párrafo.
   for (let i = 0; i < 3; i += 1) {
     const punto = document.createElement('span');
     punto.classList.add('punto-escribiendo');
@@ -123,6 +148,7 @@ async function enviarMensaje(texto) {
     parrafo.appendChild(punto);
   }
 
+  // Sustituye el indicador por texto y elimina el estado animado.
   function mostrarRespuesta(texto) {
     burbuja.classList.remove('escribiendo');
     parrafo.removeAttribute('aria-label');
@@ -130,36 +156,61 @@ async function enviarMensaje(texto) {
   }
 
   try {
+    // Envía el turno nuevo y hasta seis mensajes previos como contexto.
     const respuesta = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mensajeUsuario: texto })
+      body: JSON.stringify({
+        mensajeUsuario: texto,
+        historial: historialConversacion.slice(-6)
+      })
     });
 
     if (!respuesta.ok) {
       throw new Error('Error del servidor');
     }
 
+    // El backend responde con un objeto JSON que contiene "respuesta".
     const datos = await respuesta.json();
     mostrarRespuesta(datos.respuesta);
+
+    // Conserva el turno correcto para que la siguiente petición tenga contexto.
+    historialConversacion.push(
+      { role: 'user', content: texto },
+      { role: 'assistant', content: datos.respuesta }
+    );
+
+    // Mantiene como máximo seis mensajes (tres turnos) en el historial del navegador.
+    if (historialConversacion.length > 6) {
+      historialConversacion.splice(0, historialConversacion.length - 6);
+    }
   } catch (error) {
+    // Muestra un aviso comprensible si la llamada falla.
     mostrarRespuesta(MENSAJE_ERROR);
   } finally {
+    // Reactiva los controles tanto si la petición tuvo éxito como si falló.
+    enviandoMensaje = false;
     botonEnviar.disabled = false;
+    opciones.forEach((opcion) => {
+      opcion.disabled = false;
+    });
     mensajes.scrollTop = mensajes.scrollHeight;
   }
 }
 
-// 5. Eventos: enviar el formulario y pulsar una de las 4 opciones
+// EVENTOS DE ENVÍO ---------------------------------------------------------
+// Envía el contenido del campo sin recargar la página.
 formulario.addEventListener('submit', (evento) => {
-  evento.preventDefault(); // evita que la página se recargue
+  evento.preventDefault();
+  if (enviandoMensaje) return;
+
   const texto = entrada.value;
   entrada.value = '';
   enviarMensaje(texto);
   entrada.focus();
 });
 
-// Las 4 opciones: al pulsar una, se envía su pregunta completa a la IA
+// Cada opción rápida envía a la IA la pregunta almacenada en su atributo data.
 opciones.forEach((boton) => {
   boton.addEventListener('click', () => {
     enviarMensaje(boton.dataset.pregunta);

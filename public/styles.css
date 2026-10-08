@@ -27,8 +27,8 @@
 
 
 /* 1. PALETA Y VARIABLES ---------------------------------------------------
-   Se definen una sola vez y se usan con var(). Para cambiar un color, la
-   fuente o la suavidad de las animaciones, se toca aquí. */
+   Valores compartidos por el resto de la hoja para mantener una apariencia
+   coherente y facilitar los cambios globales de color, tipografía y ritmo. */
 :root {
   /* Colores */
   --color-principal: #095c84;        /* azul de Saregune: cabecera, botones, bordes */
@@ -52,22 +52,23 @@
 
 
 /* 2. RESET ----------------------------------------------------------------
-   Quita los márgenes por defecto del navegador y hace que el padding y el
-   borde no agranden las cajas. */
+   Elimina márgenes y rellenos predeterminados. border-box incluye el borde y
+   el padding dentro del ancho y alto declarados. */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Los botones y campos no heredan la fuente solos: se lo pedimos */
+/* Los controles de formulario suelen tener tipografía propia del navegador. */
 button,
 input {
   font-family: inherit;
 }
 
 
-/* 3. BASE DE LA PÁGINA ----------------------------------------------------- */
+/* 3. BASE DE LA PÁGINA -----------------------------------------------------
+   Tipografía, color y fondo predeterminados del documento. */
 body {
   font-family: var(--fuente);
   font-size: 16px;
@@ -75,15 +76,17 @@ body {
   background-color: rgb(252, 252, 252);
 }
 
-/* Contenido de prueba (en la web real será la página de Saregune) */
+/* Espaciado del contenido principal de la página que contiene el chat. */
 main {
   padding: 24px;
 }
- /* Saludo: todo el bloque alineado a la izquierda */
+
+/* Saludo inicial que aparece dentro del panel de mensajes. */
 .chat-saludo {
   text-align: left;
 }
 
+/* Título de bienvenida, con separación y tracking para destacarlo. */
 .chat-saludo h2 {
   font-size: 28px;
   color: var(--color-texto);
@@ -91,6 +94,7 @@ main {
   letter-spacing: 2px;
 }
 
+/* Subtítulo de bienvenida y margen que lo separa del siguiente contenido. */
 .chat-saludo p {
   font-size: 16px;
   color: var(--color-texto);
@@ -110,7 +114,7 @@ main {
   z-index: 1000;
 }
 
-/* Botón grande con el logo: abre y cierra el chat */
+/* Botón flotante con el logo; también sirve para abrir el chat cerrado. */
 .chat-abrir {
   width: 88px;
   height: 88px;
@@ -123,6 +127,7 @@ main {
   box-shadow: 0 3px 10px rgba(9, 92, 132, 0.18);
 }
 
+/* El logo ocupa el botón sin deformarse. */
 .chat-abrir img {
   display: block;
   width: 100%;
@@ -130,24 +135,24 @@ main {
   object-fit: contain;
 }
 
-/* Foco de teclado: se mantiene el contorno visible del navegador */
+/* Realce discreto cuando el botón recibe foco desde el teclado. */
 .chat-abrir:focus-visible {
   box-shadow: 0 3px 12px rgba(9, 92, 132, 0.24);
 }
 
-/* Al tocar en el móvil: el botón se "hunde" un poco para dar respuesta */
+/* Reduce el botón brevemente al pulsarlo en pantallas táctiles. */
 .chat-abrir:active {
   transform: scale(0.96);
 }
 
-/* Hover solo en dispositivos con ratón (en el móvil se quedaría "pegado") */
+/* La sombra de hover se limita a dispositivos que tienen un puntero preciso. */
 @media (hover: hover) {
   .chat-abrir:hover {
     box-shadow: 0 6px 16px rgba(9, 92, 132, 0.32);
   }
 }
 
-/* Bocadillo con el saludo, a la izquierda del botón */
+/* Bocadillo clicable que acompaña al botón flotante. */
 .chat-bocadillo {
   max-width: min(220px, 45vw); /* en móvil no ocupa más de casi la mitad */
   padding: 13px 17px;
@@ -165,12 +170,14 @@ main {
               transform var(--rapida) var(--curva);
 }
 
+/* Indicación visible al llegar al bocadillo con teclado. */
 .chat-bocadillo:focus-visible {
   border-color: var(--color-principal);
   outline: 2px solid rgba(9, 92, 132, 0.2);
   outline-offset: 2px;
 }
 
+/* Realce ligero del bocadillo al pasar el cursor en dispositivos compatibles. */
 @media (hover: hover) {
   .chat-bocadillo:hover {
     border-color: rgba(9, 92, 132, 0.35);
@@ -179,6 +186,7 @@ main {
   }
 }
 
+/* En móvil el saludo se compacta para dejar espacio al botón flotante. */
 @media (max-width: 699px) {
   .chat-bocadillo {
     max-width: min(190px, calc(100vw - 150px));
@@ -190,7 +198,7 @@ main {
   }
 }
 
-/* Nombre del asistente dentro del bocadillo */
+/* Color y peso que identifican el nombre Sare en los saludos. */
 .nombre {
   color: var(--color-principal);
   font-weight: 700;
@@ -198,8 +206,8 @@ main {
 
 
 /* 5. VENTANA DEL CHAT -----------------------------------------------------
-   Base (móvil): ocupa toda la pantalla y se organiza en columna:
-   cabecera, mensajes (con scroll), formulario y aviso. */
+   Base móvil: panel de pantalla completa organizado en cabecera, mensajes,
+   formulario y aviso. dvh se adapta al espacio visible del navegador móvil. */
 .chat-ventana {
   position: fixed;
   inset: 0;
@@ -211,11 +219,12 @@ main {
   background: var(--color-fondo);
 }
 
-/* Al tener display:flex, hay que repetir que hidden manda sobre él */
+/* Mantiene oculto el panel aunque su regla base use display:flex. */
 .chat-ventana[hidden] {
   display: none;
 }
 
+/* Capa semitransparente que atenúa el contenido de la página bajo el chat. */
 .chat-fondo {
   position: fixed;
   inset: 0;
@@ -224,7 +233,8 @@ main {
 }
 
 
-/* 6. CABECERA Y BOTÓN DE CERRAR ------------------------------------------- */
+/* 6. CABECERA Y BOTÓN DE CERRAR -------------------------------------------
+   La cabecera mantiene el logo y la X alineados, sin encogerse. */
 .chat-cabecera {
   flex-shrink: 0; /* nunca se encoge */
   display: flex;
@@ -236,6 +246,7 @@ main {
   background:linear-gradient(135deg, var(--color-principal), var(--color-principal-oscuro))
  }
 
+/* Tamaño común del logo; object-fit evita deformar su imagen cuadrada. */
 .chat-logo {
   flex-shrink: 0;
   width: 48px;
@@ -243,7 +254,7 @@ main {
   object-fit: contain;
 }
 
-/* Solo la X, grande y sin recuadro (48px es un tamaño cómodo para el dedo) */
+/* Botón de cierre grande para que sea fácil de localizar y pulsar. */
 #chat-cerrar {
   width: 48px;
   height: 48px;
@@ -256,16 +267,18 @@ main {
   cursor: pointer;
 }
 
+/* El contorno contrasta con la cabecera azul cuando se navega con teclado. */
 #chat-cerrar:focus-visible {
   outline: 3px solid var(--color-fondo);
   outline-offset: 2px;
 }
 
-/* Al tocar: se atenúa un poco */
+/* Estado de pulsación del botón de cierre. */
 #chat-cerrar:active {
   opacity: 0.7;
 }
 
+/* Hover de la X solo cuando hay un dispositivo que puede pasar el cursor. */
 @media (hover: hover) {
   #chat-cerrar:hover {
     opacity: 0.7;
@@ -274,8 +287,8 @@ main {
 
 
 /* 7. ZONA DE MENSAJES Y SALUDO --------------------------------------------
-   Es la única parte que hace scroll. Va en columna con separación para poder
-   alinear las burbujas de la persona a la derecha. */
+   Esta columna es desplazable; los elementos se apilan y las burbujas de
+   usuario pueden alinearse a la derecha. */
 .chat-mensajes {
   flex: 1;
   overflow-y: auto;
@@ -289,8 +302,7 @@ main {
 
 
 /* 8. BURBUJAS DE MENSAJE --------------------------------------------------
-   Asistente: a la izquierda, azul claro. Persona: a la derecha, azul.
-   La esquina recta (abajo) apunta hacia quien habla. */
+   Estilo compartido por mensajes del asistente y del usuario. */
 .mensaje {
   max-width: 90%;
   margin-bottom: 5px;
@@ -304,6 +316,7 @@ main {
   border-radius: 0px 16px 16px 16px;
 }
 
+/* Fila de respuesta del asistente: logo fuera de la burbuja y a su izquierda. */
 .contenedor-mensaje {
   display: flex;
   align-items: flex-start;
@@ -311,6 +324,7 @@ main {
   width: 100%;
 }
 
+/* Avatar pequeño de las respuestas del asistente. */
 .contenedor-mensaje > .chat-logo {
   flex: 0 0 24px;
   width: 24px;
@@ -319,6 +333,7 @@ main {
   margin-left: 8px;
 }
 
+/* Burbuja del asistente dentro de la fila del avatar, con ancho disponible. */
 .contenedor-mensaje > .mensaje {
   max-width: calc(100% - 52px);
   margin-right: 14px;
@@ -326,20 +341,22 @@ main {
   margin-bottom: 5px;
 }
 
-/* La burbuja de las opciones usa todo el ancho para que los botones quepan */
+/* La burbuja que agrupa opciones puede ocupar casi todo el ancho disponible. */
 .mensaje:has(.chat-opciones) {
   max-width: calc(100% - 16px);
 }
 
-/* Respeta los saltos de línea que manda la IA (un dato por línea) */
+/* Conserva los saltos de línea incluidos en los mensajes recibidos de la IA. */
 .mensaje p {
   white-space: pre-line;
 }
 
+/* Separa los párrafos consecutivos dentro de una misma burbuja. */
 .mensaje p + p {
   margin-top: 8px;
 }
 
+/* Dibuja cada punto del indicador «Escribiendo» y lo anima verticalmente. */
 .mensaje.escribiendo .punto-escribiendo {
   display: inline-block;
   width: 0.35em;
@@ -351,15 +368,17 @@ main {
   animation: punto-escribiendo 1s infinite ease-in-out;
 }
 
+/* Retraso escalonado para que los puntos parezcan moverse uno tras otro. */
 .mensaje.escribiendo .punto-escribiendo:nth-child(2) {
   animation-delay: 0.15s;
 }
 
+/* Retraso del tercer punto para completar el movimiento secuencial. */
 .mensaje.escribiendo .punto-escribiendo:nth-child(3) {
   animation-delay: 0.3s;
 }
 
-/* Mensaje de la persona: a la derecha y en azul (lo añade front.js) */
+/* Los mensajes escritos por la persona se alinean a la derecha y usan azul. */
 .mensaje.usuario {
   align-self: flex-end;
   color: var(--color-fondo);
@@ -371,7 +390,8 @@ main {
 
 
 /* 9. OPCIONES RÁPIDAS -----------------------------------------------------
-   Cuadrícula 2x2 de botones grandes para quien no quiere escribir. */
+   Distribución móvil inicial: dos opciones por fila. En escritorio se
+   convierte en una sola columna al final de la hoja. */
 .chat-opciones {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -379,7 +399,7 @@ main {
   margin-top: 12px;
 }
 
-/* Esquinas rectas y borde superior grueso; el espacio entre botones lo da el gap */
+/* Botón de opción con icono y texto centrados. */
 .chat-opcion {
   display: flex;
   align-items: center;
@@ -398,24 +418,26 @@ main {
   cursor: pointer;
 }
 
+/* Contorno de foco claro para navegación accesible con teclado. */
 .chat-opcion:focus-visible {
   background: var(--color-principal-claro);
   outline: 3px solid var(--color-principal);
   outline-offset: 2px;
 }
 
-/* Al tocar en el móvil */
+/* Respuesta visual inmediata al pulsar una opción en pantallas táctiles. */
 .chat-opcion:active {
   background: var(--color-principal-claro);
 }
 
+/* Hover suave reservado a dispositivos con puntero; evita cambios pegados en móvil. */
 @media (hover: hover) {
   .chat-opcion:hover {
     background: rgba(9, 92, 132, 0.06);
   }
 }
 
-/* Móviles muy estrechos: letra y relleno algo menores para que "Inscripciones" quepa */
+/* Reduce texto y relleno en pantallas estrechas para evitar que Inscripciones se desborde. */
 @media (max-width: 360px) {
   .chat-opcion {
     font-size: 14px;
@@ -425,7 +447,7 @@ main {
 
 
 /* 10. FORMULARIO ----------------------------------------------------------
-   Fijo abajo, con campo y botón grandes. */
+   Barra inferior fija en la columna del chat, con campo y botón de envío. */
 #chat-formulario {
   flex-shrink: 0;
   display: flex;
@@ -436,6 +458,7 @@ main {
   border-bottom: 1px solid var(--color-principal-claro);
 }
 
+/* Campo de texto flexible; el tamaño de fuente evita el zoom automático en iPhone. */
 #chat-entrada {
   flex: 1;
   min-width: 0;   /* permite que el campo se encoja en pantallas estrechas */
@@ -448,11 +471,13 @@ main {
   border-radius: var(--radio);
 }
 
+/* Realce del campo cuando se enfoca con teclado o tecnología de asistencia. */
 #chat-entrada:focus-visible {
   box-shadow: 0 0 0 3px rgba(9, 92, 132, 0.18);
   outline: none;
 }
 
+/* Botón compacto de envío con icono; el área de 48px facilita la pulsación. */
 #chat-formulario button {
   flex-shrink: 0;
   width: 48px;
@@ -468,22 +493,24 @@ main {
               transform var(--rapida) var(--curva);
 }
 
+/* Contorno de teclado para el botón de envío. */
 #chat-formulario button:focus-visible {
   outline: 3px solid var(--color-principal-oscuro);
   outline-offset: 2px;
 }
 
-/* Mientras se espera la respuesta de la IA (front.js lo desactiva) */
+/* Estado deshabilitado mientras front.js espera la respuesta de la IA. */
 #chat-formulario button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* Al tocar en el móvil */
+/* Pequeño realce al pulsar el botón de envío. */
 #chat-formulario button:active:not(:disabled) {
   transform: translateY(-2px);
 }
 
+/* Cambia ligeramente el color de la flecha al pasar el cursor. */
 @media (hover: hover) {
   #chat-formulario button:hover:not(:disabled) {
     color: var(--color-principal-oscuro);
@@ -492,7 +519,7 @@ main {
 
 
 /* 11. AVISO FINAL ---------------------------------------------------------
-   Texto con el teléfono de contacto, debajo del formulario. */
+   Nota informativa situada bajo el formulario. */
 .chat-aviso {
   flex-shrink: 0;
   padding: 8px 16px 16px;
@@ -504,78 +531,88 @@ main {
 
 
 /* 12. TRANSICIONES --------------------------------------------------------
-   Todos los cambios de estado (hover, toque, foco, desactivado) usan la misma
-   curva suave, para que el chat se sienta coherente y fino. */
+   Suaviza cambios de estado frecuentes para que la interacción visual sea
+   coherente; cada control anima solo las propiedades que utiliza. */
+/* Transición de sombra y escala del botón flotante. */
 .chat-abrir {
   transition: box-shadow var(--lenta) var(--curva),
               transform var(--rapida) var(--curva);
 }
 
+/* Aparición y desaparición suave del botón de cierre. */
 #chat-cerrar {
   transition: opacity var(--rapida) var(--curva);
 }
 
+/* Cambio gradual del fondo de las opciones al enfocar o interactuar. */
 .chat-opcion {
   transition: background-color var(--rapida) var(--curva);
 }
 
+/* Cambios de borde y contorno del campo al enfocarlo. */
 #chat-entrada {
   transition: outline-color var(--rapida) var(--curva),
               border-color var(--rapida) var(--curva);
 }
 
+/* Cambios visuales del botón de envío al pasar de activo a deshabilitado. */
 #chat-formulario button {
   transition: background-color var(--rapida) var(--curva),
               opacity var(--rapida) var(--curva);
 }
 
-/* Los mensajes nuevos hacen scroll suave en vez de saltar al final */
+/* Desplazamiento suave hacia el último mensaje. La preferencia de movimiento
+   reducido, definida más abajo, reemplaza este comportamiento. */
 .chat-mensajes {
   scroll-behavior: smooth;
 }
 
 
-/* 13. ANIMACIONES DE ENTRADA ----------------------------------------------
-   Desplazamientos pequeños (8 a 16px) y con fundido: cuanto más corto el
-   recorrido, más fino se ve. */
+/* 13. ANIMACIONES ---------------------------------------------------------
+   Fotogramas de entrada para paneles, bocadillos y mensajes nuevos. */
+/* El panel aparece con un desplazamiento vertical corto y fundido. */
 @keyframes entra-ventana {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* El bocadillo entra desde el lado del botón con un cambio leve de escala. */
 @keyframes entra-bocadillo {
   from { opacity: 0; transform: translateX(12px) scale(0.97); }
   to   { opacity: 1; transform: translateX(0) scale(1); }
 }
 
+/* Los mensajes nuevos aparecen suavemente desde abajo. */
 @keyframes entra-mensaje {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Sube los puntos de escritura por turnos para simular actividad. */
 @keyframes punto-escribiendo {
   0%, 60%, 100% { transform: translateY(0); }
   30% { transform: translateY(-0.3em); }
 }
 
-/* La ventana aparece al quitarle hidden */
+/* Activa la entrada del panel cuando JavaScript quita el atributo hidden. */
 .chat-ventana {
   animation: entra-ventana var(--lenta) var(--curva);
 }
 
-/* El bocadillo aparece al cargar la página y cuando se cierra el chat */
+/* Anima el bocadillo al mostrarse junto al botón flotante. */
 .chat-bocadillo {
   animation: entra-bocadillo var(--lenta) var(--curva);
 }
 
-/* Solo los mensajes recién creados (front.js les pone la clase "nuevo") */
+/* front.js añade "nuevo" al crear un mensaje y la retira al acabar la animación. */
 .mensaje.nuevo {
   animation: entra-mensaje var(--lenta) var(--curva);
 }
 
 
 /* 14. ACCESIBILIDAD: MOVIMIENTO REDUCIDO ----------------------------------
-   Quien lo tiene activado en su dispositivo no verá animaciones ni transiciones. */
+   Respeta la preferencia del sistema y elimina movimiento, transiciones y
+   desplazamiento suave para las personas que lo solicitan. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -588,10 +625,10 @@ main {
 
 
 /* 15. PANTALLAS GRANDES ---------------------------------------------------
-   Debe ir al final para ganar a las reglas base. En ordenador la ventana
-   flota encima del botón, con esquinas redondeadas y sombra.
-   La condición de altura evita que un móvil en horizontal entre aquí. */
+   En escritorio, las opciones van en columna y el chat flota sobre el botón.
+   Ancho y alto tienen máximos, pero se adaptan a la ventana disponible. */
 @media (min-width: 700px) and (min-height: 600px) {
+  /* Una opción por fila, con anchura menor y separación vertical. */
   .chat-opciones {
     grid-template-columns: 1fr;
     width: 90%;
@@ -599,6 +636,7 @@ main {
     margin-inline: auto;
   }
 
+  /* Panel flotante de escritorio; el límite de alto evita que toque los bordes. */
   .chat-ventana {
     inset: auto;   /* anula el inset: 0 del móvil */
     right: 20px;

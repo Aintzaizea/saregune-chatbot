@@ -2,13 +2,16 @@ import { preguntarIA } from "../services/ia.js";
 import { obtenerTodosLosConocimientos } from "../models/conocimiento.js";
 
 export async function responderChat(req, res) {
+  
     try {
-        const { mensajeUsuario } = req.body;
+        const { mensajeUsuario, historial = [] } = req.body;
         // Validación básica
         if (!mensajeUsuario || mensajeUsuario.trim() === "") {
             return res.status(400).json({ error: "Faltan datos obligatorios." });
         }
-        const respuesta = await preguntarIA(mensajeUsuario);
+
+
+        const respuesta = await preguntarIA(mensajeUsuario, historial);
         res.json({ respuesta });
     } catch (error) {
 

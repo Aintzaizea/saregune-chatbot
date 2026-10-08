@@ -24,16 +24,6 @@
    ========================================================================== */
 
 
-/* 0. FUENTE ---------------------------------------------------------------
-   Lexend servida desde el proyecto. Al ser una fuente variable, un solo
-   archivo cubre todos los pesos (usamos 400 y 700). */
-@font-face {
-  font-family: "Lexend";
-  src: url("assets/fonts/Lexend-VariableFont_wght.ttf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap; /* muestra texto enseguida con la fuente de respaldo */
-}
 
 
 /* 1. PALETA Y VARIABLES ---------------------------------------------------
@@ -44,12 +34,12 @@
   --color-principal: #095c84;        /* azul de Saregune: cabecera, botones, bordes */
   --color-principal-oscuro: #064563; /* hover, foco y texto de las opciones */
   --color-principal-claro: #e8f3f8;  /* fondos suaves: burbujas y hover */
-  --color-texto: #1a1a1a;
+  --color-texto: #46464b;
   --color-texto-suave: #444444;      /* textos secundarios (aviso final) */
   --color-fondo: #ffffff;
 
   /* Tipografía del chat */
-  --fuente: "Lexend", system-ui, sans-serif;
+  --fuente: "Outfit", system-ui, sans-serif;
 
   /* Esquinas de los controles (campo de texto y botón Enviar) */
   --radio: 12px;
@@ -89,8 +79,24 @@ body {
 main {
   padding: 24px;
 }
+ /* Saludo: todo el bloque alineado a la izquierda */
+.chat-saludo {
+  text-align: left;
+}
 
+.chat-saludo h2 {
+  font-size: 28px;
+  color: var(--color-texto);
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+}
 
+.chat-saludo p {
+  font-size: 16px;
+  color: var(--color-texto);
+  padding-right: 20px; /* para que no toque el borde de la pantalla en móvil */
+  margin-bottom: 5px;
+}
 /* 4. LANZADOR -------------------------------------------------------------
    Contenedor invisible, fijo abajo a la derecha, que coloca el bocadillo
    y el botón en fila. Siempre visible. */
@@ -114,7 +120,7 @@ main {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(9, 92, 132, 0.65);
+  box-shadow: 0 3px 10px rgba(9, 92, 132, 0.18);
 }
 
 .chat-abrir img {
@@ -124,9 +130,9 @@ main {
   object-fit: contain;
 }
 
-/* Foco de teclado: la sombra se intensifica (el contorno del navegador se mantiene) */
+/* Foco de teclado: se mantiene el contorno visible del navegador */
 .chat-abrir:focus-visible {
-  box-shadow: 0 8px 26px var(--color-principal);
+  box-shadow: 0 3px 12px rgba(9, 92, 132, 0.24);
 }
 
 /* Al tocar en el móvil: el botón se "hunde" un poco para dar respuesta */
@@ -137,22 +143,51 @@ main {
 /* Hover solo en dispositivos con ratón (en el móvil se quedaría "pegado") */
 @media (hover: hover) {
   .chat-abrir:hover {
-    box-shadow: 0 8px 26px var(--color-principal);
+    box-shadow: 0 6px 16px rgba(9, 92, 132, 0.32);
   }
 }
 
 /* Bocadillo con el saludo, a la izquierda del botón */
 .chat-bocadillo {
   max-width: min(220px, 45vw); /* en móvil no ocupa más de casi la mitad */
-  padding: 12px 16px;
+  padding: 13px 17px;
   font-size: 15px;
   line-height: 1.4;
   text-align: center;
   color: var(--color-texto);
   background: var(--color-fondo);
-  border: 2px solid var(--color-principal);
-  border-radius: 30px 0 30px 30px; /* la esquina recta apunta al botón */
+  border: 1px solid rgba(9, 92, 132, 0.2);
+  border-radius: 22px 22px 4px 22px;
   cursor: pointer;
+  box-shadow: 0 3px 12px rgba(9, 92, 132, 0.1);
+  transition: box-shadow var(--rapida) var(--curva),
+              border-color var(--rapida) var(--curva),
+              transform var(--rapida) var(--curva);
+}
+
+.chat-bocadillo:focus-visible {
+  border-color: var(--color-principal);
+  outline: 2px solid rgba(9, 92, 132, 0.2);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .chat-bocadillo:hover {
+    border-color: rgba(9, 92, 132, 0.35);
+    box-shadow: 0 5px 16px rgba(9, 92, 132, 0.15);
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 699px) {
+  .chat-bocadillo {
+    max-width: min(190px, calc(100vw - 150px));
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.35;
+    border-radius: 18px 18px 4px 18px;
+    box-shadow: 0 2px 8px rgba(9, 92, 132, 0.08);
+  }
 }
 
 /* Nombre del asistente dentro del bocadillo */
@@ -181,6 +216,13 @@ main {
   display: none;
 }
 
+.chat-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  background: rgba(0, 0, 0, 0.32);
+}
+
 
 /* 6. CABECERA Y BOTÓN DE CERRAR ------------------------------------------- */
 .chat-cabecera {
@@ -191,6 +233,14 @@ main {
   padding: 12px 16px;
   background: var(--color-principal);
   color: var(--color-fondo);
+  background:linear-gradient(135deg, var(--color-principal), var(--color-principal-oscuro))
+ }
+
+.chat-logo {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
 }
 
 /* Solo la X, grande y sin recuadro (48px es un tamaño cómodo para el dedo) */
@@ -236,14 +286,6 @@ main {
   padding: 16px;
 }
 
-.chat-saludo h2 {
-  font-size: 1.8rem;
-  color: var(--color-principal);
-}
-
-.chat-saludo p {
-  font-size: 1.2rem;
-}
 
 
 /* 8. BURBUJAS DE MENSAJE --------------------------------------------------
@@ -251,17 +293,42 @@ main {
    La esquina recta (abajo) apunta hacia quien habla. */
 .mensaje {
   max-width: 90%;
-  padding: 12px 14px;
-  font-size: 1rem;
+  margin-bottom: 5px;
+  margin-right: 14px;
+  margin-left: 14px;
+  padding: 12px 12px;
+  font-size: 16px;
   line-height: 1.5;
   overflow-wrap: anywhere; /* correos o textos largos no se salen de la burbuja */
   background: var(--color-principal-claro);
-  border-radius: 16px 16px 16px 4px;
+  border-radius: 0px 16px 16px 16px;
+}
+
+.contenedor-mensaje {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+}
+
+.contenedor-mensaje > .chat-logo {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  margin-left: 8px;
+}
+
+.contenedor-mensaje > .mensaje {
+  max-width: calc(100% - 52px);
+  margin-right: 14px;
+  margin-left: 0;
+  margin-bottom: 5px;
 }
 
 /* La burbuja de las opciones usa todo el ancho para que los botones quepan */
 .mensaje:has(.chat-opciones) {
-  max-width: 100%;
+  max-width: calc(100% - 16px);
 }
 
 /* Respeta los saltos de línea que manda la IA (un dato por línea) */
@@ -273,12 +340,33 @@ main {
   margin-top: 8px;
 }
 
+.mensaje.escribiendo .punto-escribiendo {
+  display: inline-block;
+  width: 0.35em;
+  height: 0.35em;
+  margin-left: 0.25em;
+  vertical-align: middle;
+  background-color: currentColor;
+  border-radius: 50%;
+  animation: punto-escribiendo 1s infinite ease-in-out;
+}
+
+.mensaje.escribiendo .punto-escribiendo:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.mensaje.escribiendo .punto-escribiendo:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
 /* Mensaje de la persona: a la derecha y en azul (lo añade front.js) */
 .mensaje.usuario {
   align-self: flex-end;
   color: var(--color-fondo);
   background: var(--color-principal);
-  border-radius: 16px 16px 4px 16px;
+  border-radius: 16px 16px 0px 16px;
+  margin-right: 14px;
+  
 }
 
 
@@ -323,7 +411,7 @@ main {
 
 @media (hover: hover) {
   .chat-opcion:hover {
-    background: var(--color-principal-claro);
+    background: rgba(9, 92, 132, 0.06);
   }
 }
 
@@ -341,42 +429,43 @@ main {
 #chat-formulario {
   flex-shrink: 0;
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
   padding: 12px 16px;
   border-top: 1px solid var(--color-principal-claro);
+  border-bottom: 1px solid var(--color-principal-claro);
 }
 
 #chat-entrada {
   flex: 1;
   min-width: 0;   /* permite que el campo se encoja en pantallas estrechas */
   min-height: 48px;
-  padding: 0 14px;
+  padding: 0 16px;
   font-size: 16px; /* 16px o más: si no, el iPhone hace zoom al tocar el campo */
   color: var(--color-texto);
-  background: var(--color-fondo);
-  border: 2px solid var(--color-principal);
+  background: var(--color-principal-claro);
+  border: 2px solid transparent;
   border-radius: var(--radio);
-  outline: 2px solid transparent; /* invisible normalmente; en modo alto contraste de Windows sí se ve */
-  outline-offset: 2px;
 }
 
-/* Foco del campo: el borde se oscurece y aparece un resplandor suave, sin segundo borde */
 #chat-entrada:focus-visible {
-  border-color: var(--color-principal-oscuro);
-  box-shadow: 0 0 0 1px var(--color-principal-oscuro),  /* engrosa el borde sin mover nada */
-              0 0 12px rgba(9, 92, 132, 0.35);          /* resplandor suave */
+  box-shadow: 0 0 0 3px rgba(9, 92, 132, 0.18);
+  outline: none;
 }
 
 #chat-formulario button {
-  min-height: 48px;
-  padding: 0 20px;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-fondo);
-  background: var(--color-principal);
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  font-size: 22px;
+  color: var(--color-principal);
+  background: transparent;
   border: none;
-  border-radius: var(--radio);
   cursor: pointer;
+  transition: color var(--rapida) var(--curva),
+              opacity var(--rapida) var(--curva),
+              transform var(--rapida) var(--curva);
 }
 
 #chat-formulario button:focus-visible {
@@ -392,12 +481,12 @@ main {
 
 /* Al tocar en el móvil */
 #chat-formulario button:active:not(:disabled) {
-  background: var(--color-principal-oscuro);
+  transform: translateY(-2px);
 }
 
 @media (hover: hover) {
   #chat-formulario button:hover:not(:disabled) {
-    background: var(--color-principal-oscuro);
+    color: var(--color-principal-oscuro);
   }
 }
 
@@ -407,11 +496,11 @@ main {
 .chat-aviso {
   flex-shrink: 0;
   padding: 8px 16px 16px;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 12px;
   text-align: center;
   color: var(--color-texto-suave);
 }
+
 
 
 /* 12. TRANSICIONES --------------------------------------------------------
@@ -464,6 +553,11 @@ main {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes punto-escribiendo {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-0.3em); }
+}
+
 /* La ventana aparece al quitarle hidden */
 .chat-ventana {
   animation: entra-ventana var(--lenta) var(--curva);
@@ -498,12 +592,19 @@ main {
    flota encima del botón, con esquinas redondeadas y sombra.
    La condición de altura evita que un móvil en horizontal entre aquí. */
 @media (min-width: 700px) and (min-height: 600px) {
+  .chat-opciones {
+    grid-template-columns: 1fr;
+    width: 90%;
+    gap: 12px;
+    margin-inline: auto;
+  }
+
   .chat-ventana {
     inset: auto;   /* anula el inset: 0 del móvil */
     right: 20px;
     bottom: 150px; /* justo por encima del botón del logo */
-    width: 400px;
-    height: min(640px, calc(100dvh - 170px)); /* máximo 640px; se encoge si la pantalla es baja */
+    width: min(520px, calc(100vw - 40px));
+    height: min(820px, calc(100dvh - 170px)); /* se adapta a ventanas bajas */
     border-radius: 20px;
     overflow: hidden; /* la cabecera azul respeta las esquinas redondeadas */
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);

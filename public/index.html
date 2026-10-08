@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chatbot</title>
-  <!-- Fuente Atkinson Hyperlegible de Google Fonts (pesos normal y negrita) -->
+ 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
 
  
   <div class="chat-lanzador" >
@@ -22,12 +21,15 @@
 <!-- El alt describe la acción, no la imagen -->
 <button class="chat-abrir" id="chat-abrir"><img src="assets/circulos.png" alt="Abrir el chat de ayuda"></button>  </div>
 
-  <!-- 3. Ventana del chat (oculta al principio) -->
+<div class="chat-fondo" id="chat-fondo" hidden></div>
+
+<!-- 3. Ventana del chat (oculta al principio) -->
   <!-- Con hidden, la ventana empieza cerrada y el JS la abre -->
-<section class="chat-ventana" id="chat-ventana" hidden>
+<section class="chat-ventana" id="chat-ventana" role="dialog" aria-modal="true" aria-label="Chat de ayuda" hidden>
 
     <!-- 3.1 Cabecera -->
     <header class="chat-cabecera">
+      <img src="assets/circulosblanco.png" alt="Logo de Saregune" class="chat-logo">
       <span class="chat-avatar"></span>
       <button id="chat-cerrar" aria-label="Cerrar el chat">✕</button>
     </header>
@@ -36,17 +38,18 @@
     <div class="chat-mensajes" id="chat-mensajes" aria-live="polite">
 
       <div class="chat-saludo">
-        <h2>Hola, soy Sare <i class="fa-solid fa-hands-clapping"></i></h2>
-        <br>
+        <h2>Hola, soy <span class="nombre">Sare</span> <i class="fa-solid fa-hands-clapping"></i></h2>
         <p>¿En qué puedo ayudarte?</p>
-        <br>
       </div>
-
-      <div class="mensaje">
-        <p>Soy Sare, tu asistente virtual y estoy aquí para lo que necesites.</p>
-        <p>Por favor, no escribas ningún dato personal.</p>
+      <div class="contenedor-mensaje">
+        <img src="assets/circulos.png" alt="Logo de Saregune" class="chat-logo">
+        <div class="mensaje">
+          <p>Soy Sare, tu asistente virtual y estoy aquí para lo que necesites.</p>
+          <p>Por favor, no escribas ningún dato personal.</p>
+        </div>
       </div>
-      <br>
+      
+     
 
       <div class="mensaje">
         <p>Elige una opción o escribe tu pregunta.</p>
@@ -79,12 +82,12 @@
     <!-- 3.3 Formulario -->
     <form id="chat-formulario" autocomplete="off">
       <input type="text" id="chat-entrada" placeholder="Escribe aquí tu mensaje" aria-label="Escribe tu mensaje" maxlength="500" required>
-      <button type="submit">Enviar</button>
+      <button type="submit" aria-label="Enviar mensaje"><i class="fa-solid fa-paper-plane"></i></i></button>
     </form>
 
     <!-- 3.4 Aviso final -->
     <p class="chat-aviso">
-       Si necesitas ayuda, llámanos al 945 03 99 81 o pásate a vernos.
+       Sare es una IA y puede cometer errores. Por favor, contrasta la información importante.
     </p>
 
   </section>

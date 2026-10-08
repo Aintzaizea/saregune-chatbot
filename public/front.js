@@ -2,31 +2,39 @@
 const botonAbrir = document.getElementById('chat-abrir');
 const bocadillo = document.getElementById('chat-bocadillo');
 const ventana = document.getElementById('chat-ventana');
+const fondoChat = document.getElementById('chat-fondo');
 const botonCerrar = document.getElementById('chat-cerrar');
 const mensajes = document.getElementById('chat-mensajes');
 const formulario = document.getElementById('chat-formulario');
 const entrada = document.getElementById('chat-entrada');
 const botonEnviar = formulario.querySelector('button');
 const opciones = document.querySelectorAll('.chat-opcion');
+let elementoQueAbrio = null;
+//const limpio = data.respuesta.replaceAll("**","");
 // 2. Abrir y cerrar la ventana del chat
 // Abrir: se muestra la ventana y se esconde el bocadillo
 function abrirChat() {
+  elementoQueAbrio = document.activeElement;
   ventana.hidden = false;
+  fondoChat.hidden = false;
+  document.querySelector('.chat-lanzador').inert = true;
   bocadillo.hidden = true;
+  botonCerrar.focus();
 }
 
 // Cerrar: se oculta la ventana y vuelve a salir el bocadillo
 function cerrarChat() {
   ventana.hidden = true;
+  fondoChat.hidden = true;
+  document.querySelector('.chat-lanzador').inert = false;
   bocadillo.hidden = false;
+  elementoQueAbrio?.focus();
 }
 
-// Botón grande: abre si la ventana está cerrada y cierra si está abierta
+// El chat solo se cierra con la X
 botonAbrir.addEventListener('click', () => {
   if (ventana.hidden) {
     abrirChat();
-  } else {
-    cerrarChat();
   }
 });
 
@@ -35,6 +43,24 @@ bocadillo.addEventListener('click', abrirChat);
 
 // X de la cabecera: cierra la ventana
 botonCerrar.addEventListener('click', cerrarChat);
+
+ventana.addEventListener('keydown', (evento) => {
+  if (evento.key !== 'Tab') return;
+
+  const elementosEnfocables = Array.from(
+    ventana.querySelectorAll('button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])')
+  ).filter((elemento) => !elemento.disabled && elemento.getClientRects().length > 0);
+  const primero = elementosEnfocables[0];
+  const ultimo = elementosEnfocables[elementosEnfocables.length - 1];
+
+  if (evento.shiftKey && document.activeElement === primero) {
+    evento.preventDefault();
+    ultimo.focus();
+  } else if (!evento.shiftKey && document.activeElement === ultimo) {
+    evento.preventDefault();
+    primero.focus();
+  }
+});
 
 // quien puede ser 'usuario' o 'asistente'. Devuelve la burbuja creada
 function agregarMensaje(texto, quien) {
@@ -52,7 +78,22 @@ function agregarMensaje(texto, quien) {
   parrafo.textContent = texto;
 
   mensaje.appendChild(parrafo);
-  mensajes.appendChild(mensaje);
+
+  if (quien === 'asistente') {
+    const contenedor = document.createElement('div');
+    contenedor.classList.add('contenedor-mensaje');
+
+    const logo = document.createElement('img');
+    logo.src = 'assets/circulos.png';
+    logo.alt = '';
+    logo.setAttribute('aria-hidden', 'true');
+    logo.classList.add('chat-logo');
+
+    contenedor.append(logo, mensaje);
+    mensajes.appendChild(contenedor);
+  } else {
+    mensajes.appendChild(mensaje);
+  }
 
   // Bajar el scroll hasta el último mensaje
   mensajes.scrollTop = mensajes.scrollHeight;
@@ -60,7 +101,7 @@ function agregarMensaje(texto, quien) {
 }
 
 // 4. Enviar el mensaje a /api/chat y pintar la respuesta
-const MENSAJE_ERROR = 'Ahora mismo no te puedo responder. Inténtalo de nuevo en unos minutos o llámanos al 945 03 99 81.';
+const MENSAJE_ERROR = 'Ahora mismo no te puedo responder. Inténtalo de nuevo en unos minutos, llámanos al 945 03 99 81 o mándanos un WhatsApp al 688 85 16 41';
 
 async function enviarMensaje(texto) {
   texto = texto.trim();
@@ -71,6 +112,22 @@ async function enviarMensaje(texto) {
 
   // Burbuja provisional que luego se rellena con la respuesta
   const burbuja = agregarMensaje('Escribiendo...', 'asistente');
+  burbuja.classList.add('escribiendo');
+  const parrafo = burbuja.querySelector('p');
+  parrafo.textContent = 'Escribiendo ';
+  parrafo.setAttribute('aria-label', 'Escribiendo ');
+  for (let i = 0; i < 3; i += 1) {
+    const punto = document.createElement('span');
+    punto.classList.add('punto-escribiendo');
+    punto.setAttribute('aria-hidden', 'true');
+    parrafo.appendChild(punto);
+  }
+
+  function mostrarRespuesta(texto) {
+    burbuja.classList.remove('escribiendo');
+    parrafo.removeAttribute('aria-label');
+    parrafo.textContent = texto;
+  }
 
   try {
     const respuesta = await fetch('/api/chat', {
@@ -84,9 +141,9 @@ async function enviarMensaje(texto) {
     }
 
     const datos = await respuesta.json();
-    burbuja.querySelector('p').textContent = datos.respuesta;
+    mostrarRespuesta(datos.respuesta);
   } catch (error) {
-    burbuja.querySelector('p').textContent = MENSAJE_ERROR;
+    mostrarRespuesta(MENSAJE_ERROR);
   } finally {
     botonEnviar.disabled = false;
     mensajes.scrollTop = mensajes.scrollHeight;
@@ -108,4 +165,3 @@ opciones.forEach((boton) => {
     enviarMensaje(boton.dataset.pregunta);
   });
 });
-

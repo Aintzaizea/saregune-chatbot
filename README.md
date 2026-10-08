@@ -90,6 +90,10 @@ node index.js
 - Usa el chatbot para realizar preguntas.
 - En la parte administrativa puedes gestionar la información disponible para el asistente.
 
+## Integración con Groq
+
+Este proyecto usa Groq como proveedor de IA para responder las consultas del chatbot.
+
 ## Variables de entorno
 
 Si tu proyecto usa variables de entorno, puedes crear un archivo `.env` con configuraciones como:

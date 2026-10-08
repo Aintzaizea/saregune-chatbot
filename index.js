@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import conocimientosRoutes from './src/routes/conocimientosRoutes.js';
-import chatRoutes from './src/routes/chatRoutes.js'; //creado por lili
+import chatRoutes from './src/routes/chatRoutes.js'; // creado por lili
 
 dotenv.config();
 
@@ -17,11 +17,12 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rutas de la API(basma)
+// Rutas de la API (Basma - CRUD Admin y lectura de conocimientos)
 app.use('/api', conocimientosRoutes);
-//Ruta de chat (lili)
+
+// Ruta de chat (Lili)
 app.use('/api', chatRoutes);
 
 app.listen(PORT, () => {
-    console.log(` Servidor listo en http://localhost:${PORT}`);
+    console.log(`Servidor listo en http://localhost:${PORT}`);
 });

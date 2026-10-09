@@ -112,9 +112,49 @@ function agregarMensaje(texto, quien) {
   return mensaje;
 }
 
+// ENLACES EN LAS RESPUESTAS ------------------------------------------------
+// Detecta teléfonos españoles de 9 cifras que empiezan por 6 o 9 (con o sin espacios).
+const PATRON_TELEFONO = /\b[69]\d{2}[ .-]?\d{2}[ .-]?\d{2}[ .-]?\d{2}\b/g;
+
+// Escribe un texto en un párrafo convirtiendo los teléfonos en enlaces:
+// los móviles (6xx) abren WhatsApp en una ventana nueva y los fijos (9xx) llaman.
+// Se construye con nodos (no con innerHTML) para que nada del texto se ejecute como HTML.
+function escribirConEnlaces(elemento, texto) {
+  texto = String(texto ?? '');
+  elemento.textContent = ''; // vacía el párrafo
+  let ultimo = 0;
+
+  for (const coincidencia of texto.matchAll(PATRON_TELEFONO)) {
+    const numero = coincidencia[0];
+    const inicio = coincidencia.index;
+
+    // Texto normal que hay antes del número (append lo añade como texto, no como HTML).
+    elemento.append(texto.slice(ultimo, inicio));
+
+    const digitos = numero.replace(/\D/g, ''); // solo las cifras
+    const enlace = document.createElement('a');
+    enlace.textContent = numero;
+
+    if (digitos.startsWith('6')) {
+      enlace.href = `https://wa.me/34${digitos}`;
+      enlace.target = '_blank';
+      enlace.rel = 'noopener noreferrer';
+      enlace.setAttribute('aria-label', `Escribir por WhatsApp al ${numero}`);
+    } else {
+      enlace.href = `tel:+34${digitos}`;
+    }
+
+    elemento.append(enlace);
+    ultimo = inicio + numero.length;
+  }
+
+  // Texto que queda después del último número.
+  elemento.append(texto.slice(ultimo));
+}
+
 // ENVÍO A LA API ----------------------------------------------------------
 // Texto que se muestra en la burbuja si la petición o la respuesta falla.
-const MENSAJE_ERROR = 'Ahora mismo no te puedo responder. Inténtalo de nuevo en unos minutos, llámanos al 945 03 99 81 o mándanos un WhatsApp al 688 85 16 41';
+const MENSAJE_ERROR = 'Ahora mismo no te puedo responder. Inténtalo de nuevo en unos minutos, llámanos al 945 03 99 81 o mándanos un WhatsApp al 688 85 16 41.';
 
 // Envía el texto a la API y actualiza la burbuja provisional con la respuesta.
 async function enviarMensaje(texto) {
@@ -148,11 +188,13 @@ async function enviarMensaje(texto) {
     parrafo.appendChild(punto);
   }
 
-  // Sustituye el indicador por texto y elimina el estado animado.
-  function mostrarRespuesta(texto) {
+  // Sustituye el indicador por el texto final (con los teléfonos como enlaces)
+  // y elimina el estado animado. El parámetro se llama "contenido" para no
+  // confundirse con "texto", que es lo que escribió la persona.
+  function mostrarRespuesta(contenido) {
     burbuja.classList.remove('escribiendo');
     parrafo.removeAttribute('aria-label');
-    parrafo.textContent = texto;
+    escribirConEnlaces(parrafo, contenido);
   }
 
   try {

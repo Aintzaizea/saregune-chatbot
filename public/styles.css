@@ -388,6 +388,18 @@ main {
   
 }
 
+.mensaje a {
+  color: var(--color-principal-oscuro);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.mensaje a:focus-visible {
+  outline: 3px solid var(--color-principal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
 /* 9. OPCIONES RÁPIDAS -----------------------------------------------------
    Distribución móvil inicial: dos opciones por fila. En escritorio se

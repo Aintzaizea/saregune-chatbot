@@ -103,7 +103,7 @@ npm install
 
 3. Crea el archivo `.env` en la raíz del proyecto con las variables indicadas arriba.
 
-4. (Opcional) Carga la base de datos con información inicial:
+4. Carga la base de datos con información inicial:
 
 ```bash
 node seed.js

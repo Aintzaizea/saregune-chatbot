@@ -1,0 +1,196 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 20px; 
+    background-color: #f4f4f9; 
+}
+/* Estilo para la cabecera*/
+.cabecera-panel {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.cabecera-panel h1 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.cabecera-panel p {
+    margin: 0;
+    font-size: 14px;
+    color: #bdc3c7;
+}
+.contenedor { 
+    max-width: 900px; 
+    margin: auto; 
+    background: white; 
+    padding: 25px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+h1, h2 { 
+    color: #333; 
+}
+
+.formulario { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    margin-bottom: 25px; 
+}
+
+.grupo-campo { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 4px; 
+}
+
+.grupo-campo label { 
+    font-weight: bold; 
+    font-size: 13px; 
+    color: #444; 
+}
+
+.formulario input, 
+.formulario textarea { 
+    padding: 9px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 14px; 
+}
+
+.fila-doble { 
+    display: flex; 
+    gap: 15px; 
+}
+
+.fila-doble > div { 
+    flex: 1; 
+}
+
+#contenedor-meses { 
+    border: 1px dashed #bbb; 
+    padding: 12px; 
+    border-radius: 6px; 
+    background: #fafafa; 
+}
+
+.fila-mes { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 8px; 
+    align-items: center; 
+}
+
+.fila-mes input { 
+    flex: 1; 
+}
+
+.boton-eliminar-mes { 
+    background-color: #dc3545; 
+    color: white; 
+    border: none; 
+    padding: 8px 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+}
+
+.contenedor-botones { 
+    display: flex; 
+    gap: 10px; 
+    margin-top: 10px; 
+}
+
+.boton-guardar { 
+    background-color: #28a745; 
+    color: white; 
+    border: none; 
+    padding: 10px 18px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 15px; 
+    font-weight: bold; 
+}
+
+.boton-guardar:hover { 
+    background-color: #218838; 
+}
+
+.boton-cancelar { 
+    background-color: #6c757d; 
+    color: white; 
+    border: none; 
+    padding: 10px 18px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 15px; 
+    display: none; 
+}
+
+.boton-cancelar:hover { 
+    background-color: #5a6268; 
+}
+
+.lista-conocimientos { 
+    margin-top: 15px; 
+}
+
+.tarjeta { 
+    background: #fafafa; 
+    border: 1px solid #ddd; 
+    padding: 15px; 
+    border-radius: 6px; 
+    margin-bottom: 15px; 
+}
+
+.tarjeta p { 
+    margin: 6px 0; 
+}
+
+/* Botón Editar */
+.accion-editar { 
+    background-color: #f39c12;
+    color: white; 
+    border: none; 
+    padding: 8px 14px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    margin-right: 8px; 
+    font-weight: bold;
+    font-size: 13px;
+    transition: background-color 0.2s;
+}
+
+.accion-editar:hover { 
+    background-color: #d68910; 
+}
+
+/* Botón Eliminar */
+.accion-eliminar { 
+    background-color: #e74c3c; 
+    color: white; 
+    border: none; 
+    padding: 8px 14px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-weight: bold;
+    font-size: 13px;
+    transition: background-color 0.2s;
+}
+
+.accion-eliminar:hover { 
+    background-color: #c0392b; 
+}

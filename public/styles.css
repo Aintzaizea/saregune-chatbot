@@ -378,15 +378,28 @@ main {
   animation-delay: 0.3s;
 }
 
-/* Los mensajes escritos por la persona se alinean a la derecha y usan azul. */
+/* Mensaje de la persona: a la derecha y en azul (lo añade front.js) */
 .mensaje.usuario {
   align-self: flex-end;
   color: var(--color-fondo);
   background: var(--color-principal);
-  border-radius: 16px 16px 0px 16px;
-  margin-right: 14px;
-  
+  border-radius: 16px 16px 4px 16px;
 }
+
+/* Enlaces dentro de las burbujas (teléfonos): subrayados y en negrita */
+.mensaje a {
+  color: var(--color-principal-oscuro);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.mensaje a:focus-visible {
+  outline: 3px solid var(--color-principal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 
 
 /* 9. OPCIONES RÁPIDAS -----------------------------------------------------

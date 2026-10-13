@@ -3,29 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Conocimientos</title>
+    <title>Panel de Administración - Saregune</title>
+    <!-- Enlace al archivo CSS separado -->
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 
-    <h1>Conocimientos CRUD</h1>
+<div class="contenedor">
+   <div class="cabecera-panel">
+    <h1>Panel de Administración Chatbot</h1>
+    <p>Gestión de contenidos y base de conocimientos de Saregune</p>
+</div>
 
-    <form action="/api/conocimientos" method="post" class="form-conocimiento">
-        <input type="text" name="categoria" id="categoria" placeholder="Categoría">
-        <input type="text" name="tipo" id="tipo" placeholder="Tipo">
-        <input type="text" name="pregunta" id="pregunta" placeholder="Pregunta">
-        <input type="text" name="respuesta" id="respuesta" placeholder="Respuesta">
-        <input type="text" name="url" id="url" placeholder="URL">
+    <form class="formulario">
+        <!-- Campo oculto para el ID -->
+        <input type="hidden" id="id">
 
-        <input type="hidden" name="id" id="id">
+        <div class="fila-doble">
+            <div class="grupo-campo">
+                <label for="categoria">Categoría:</label>
+                <input type="text" id="categoria" placeholder="ej: Cursos, Blog, Recursos" required>
+            </div>
+            <div class="grupo-campo">
+                <label for="tipo">Tipo:</label>
+                <input type="text" id="tipo" placeholder="ej: basico, avanzado, contacto" required>
+            </div>
+        </div>
 
-        <button type="submit" class="btn-envio">Guardar</button>
+        <div class="grupo-campo">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" placeholder="ej: Iniciación a la informática" required>
+        </div>
+
+        <div class="grupo-campo">
+            <label for="pregunta">Pregunta exacta del usuario:</label>
+            <input type="text" id="pregunta" placeholder="ej: ¿Qué cursos básicos hay?" required>
+        </div>
+
+        <div class="grupo-campo">
+            <label for="descripcion">Descripción breve (opcional):</label>
+            <textarea id="descripcion" rows="2" placeholder="Resumen corto del contenido..."></textarea>
+        </div>
+
+        <div class="grupo-campo">
+            <label for="respuesta">Respuesta completa del Chatbot:</label>
+            <textarea id="respuesta" rows="3" placeholder="Texto detallado que responderá el bot..." required></textarea>
+        </div>
+        
+        <div class="fila-doble">
+            <div class="grupo-campo">
+                <label for="inscripcion">Inscripción:</label>
+                <input type="text" id="inscripcion" placeholder="ej: Presencial en Saregune">
+            </div>
+            <div class="grupo-campo">
+                <label for="url">URL o Enlace:</label>
+                <input type="url" id="url" placeholder="https://www.saregune.net/...">
+            </div>
+        </div>
+
+        <!-- GESTIÓN DINÁMICA DE MESES Y HORARIOS -->
+        <div class="grupo-campo">
+            <label>Horarios por Meses (para cursos básicos - puedes añadir o quitar meses libremente):</label>
+            <div id="contenedor-meses">
+                <!-- Los meses se insertarán dinámicamente aquí -->
+            </div>
+            <button type="button" id="btn-agregar-mes" style="margin-top: 8px; padding: 6px 12px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; width: fit-content;">+ Añadir Mes</button>
+        </div>
+
+        <div class="contenedor-botones">
+            <button type="submit" class="boton-guardar">Guardar / Añadir</button>
+            <button type="button" class="boton-cancelar">Cancelar Edición</button>
+        </div>
     </form>
 
-    <div class="lista-conocimientos">
+    <h2>Elementos Registrados en la Base de Datos</h2>
+    <div class="lista-conocimientos"></div>
+</div>
 
-        
-    </div>
-
-    <script src="admin.js"></script>
+<script src="admin.js"></script>
 </body>
 </html>

@@ -24,7 +24,14 @@
    ========================================================================== */
 
 
-
+/* 0. FUENTE: Outfit servida desde el proyecto (una variable cubre todos los pesos) */
+@font-face {
+  font-family: "Outfit";
+  src: url("assets/fonts/Outfit-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* 1. PALETA Y VARIABLES ---------------------------------------------------
    Valores compartidos por el resto de la hoja para mantener una apariencia
@@ -558,6 +565,7 @@ main {
 /* 12. TRANSICIONES --------------------------------------------------------
    Suaviza cambios de estado frecuentes para que la interacción visual sea
    coherente; cada control anima solo las propiedades que utiliza. */
+
 /* Transición de sombra y escala del botón flotante. */
 .chat-abrir {
   transition: box-shadow var(--lenta) var(--curva),
@@ -574,16 +582,16 @@ main {
   transition: background-color var(--rapida) var(--curva);
 }
 
-/* Cambios de borde y contorno del campo al enfocarlo. */
+/* El halo del campo aparece con suavidad al enfocarlo. */
 #chat-entrada {
-  transition: outline-color var(--rapida) var(--curva),
-              border-color var(--rapida) var(--curva);
+  transition: box-shadow var(--lenta) var(--curva);
 }
 
-/* Cambios visuales del botón de envío al pasar de activo a deshabilitado. */
+/* Flecha de envío: color al pasar el cursor, opacidad al deshabilitarse y movimiento al pulsar. */
 #chat-formulario button {
-  transition: background-color var(--rapida) var(--curva),
-              opacity var(--rapida) var(--curva);
+  transition: color var(--rapida) var(--curva),
+              opacity var(--rapida) var(--curva),
+              transform var(--rapida) var(--curva);
 }
 
 /* Desplazamiento suave hacia el último mensaje. La preferencia de movimiento
@@ -591,7 +599,6 @@ main {
 .chat-mensajes {
   scroll-behavior: smooth;
 }
-
 
 /* 13. ANIMACIONES ---------------------------------------------------------
    Fotogramas de entrada para paneles, bocadillos y mensajes nuevos. */

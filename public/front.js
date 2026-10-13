@@ -113,8 +113,10 @@ function agregarMensaje(texto, quien) {
 }
 
 // ENLACES EN LAS RESPUESTAS ------------------------------------------------
-// Detecta teléfonos españoles de 9 cifras que empiezan por 6 o 9 (con o sin espacios).
-const PATRON_TELEFONO = /\b[69]\d{2}[ .-]?\d{2}[ .-]?\d{2}[ .-]?\d{2}\b/g;
+
+// Detecta teléfonos españoles de 9 cifras que empiezan por 6 o 9, con cualquier agrupación
+// y cualquier tipo de espacio (también los espacios "no separables" que a veces escribe la IA).
+const PATRON_TELEFONO = /\b[69](?:[\s.-]?\d){8}\b/g;
 
 // Escribe un texto en un párrafo convirtiendo los teléfonos en enlaces:
 // los móviles (6xx) abren WhatsApp en una ventana nueva y los fijos (9xx) llaman.

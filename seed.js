@@ -266,7 +266,7 @@ async function sembrarBaseDatos() {
     const coleccion = db.collection('conocimientos');
     await coleccion.deleteMany({});
     await coleccion.insertMany(todosLosConocimientos);
-    console.log("¡Base de datos actualizada correctamente con los 7 cursos básicos exactos!");
+    console.log("¡Base de datos actualizada correctamente!");
     process.exit(0);
   } catch (error) {
     console.error("Error al cargar la base de datos:", error);

@@ -16,18 +16,18 @@ const todosLosConocimientos = [
     categoria: "Contacto",
     tipo: "contacto",
     pregunta: "¿Dónde está Saregune y cómo contactar?",
-    respuesta: "Estamos en Saregune, en Cantón de Santa María, 4 (Vitoria-Gasteiz). Horario: lunes a viernes de 9:00 a 18:00. Teléfono: 945 03 99 81 | WhatsApp: 688 85 16 41. Correo (solo si lo solicitan): info@saregune.net. Web: https://www.saregune.net/es/",
-    url: "https://www.saregune.net/es/"
+    respuesta: "Estamos en Saregune, en Cantón de Santa María, 4 (Vitoria-Gasteiz). Horario: lunes a viernes de 9:00 a 18:00. Teléfono: 945 03 99 81 | WhatsApp: 688 85 16 41. Correo (solo si lo solicitan): info@saregune.net. Puedes ver la ubicación exacta en Google Maps: https://www.google.com/maps/search/?api=1&query=Saregune+Canton+de+Santa+Maria+4+Vitoria-Gasteiz",
+    url: "https://www.google.com/maps/search/?api=1&query=Saregune+Canton+de+Santa+Maria+4+Vitoria-Gasteiz"
   },
   {
     categoria: "Información General",
     tipo: "horario_centro",
     pregunta: "¿Qué horarios hay? ¿Cuál es el horario del centro? ¿A qué hora abre Saregune?",
-    respuesta: "El centro está abierto de lunes a viernes, de 9:00 a 18:00. Estamos en Cantón de Santa María, 4, Vitoria-Gasteiz.",
-    url: "https://www.saregune.net/es/"
+    respuesta: "El centro está abierto de lunes a viernes, de 9:00 a 18:00. Estamos en Cantón de Santa María, 4, Vitoria-Gasteiz. Ver en Google Maps: https://www.google.com/maps/search/?api=1&query=Saregune+Canton+de+Santa+Maria+4+Vitoria-Gasteiz",
+    url: "https://www.google.com/maps/search/?api=1&query=Saregune+Canton+de+Santa+Maria+4+Vitoria-Gasteiz"
   },
 
-  // MENÚ GENERAL DE CURSOS (DESCUBRIMIENTO PASO A PASO) 
+  // MENÚ GENERAL DE CURSOS Y REQUISITOS DE INSCRIPCIÓN
   {
     categoria: "Cursos",
     tipo: "menu_general",
@@ -35,21 +35,31 @@ const todosLosConocimientos = [
     descripcion: "Ofrecemos formación totalmente gratuita: Cursos básicos, Formación avanzada / Lanbide y Formación a familias.",
     pregunta: "¿Qué tipo de cursos ofrecen?",
     respuesta: "Ofrecemos varias opciones gratuitas:\n1. Cursos básicos: Para aprender a usar el ordenador e internet.\n2. Formación avanzada: Cursos orientados al empleo (Lanbide).\n3. Formación a familias: Uso seguro de internet y herramientas escolares. Consulta toda la oferta en: https://www.saregune.net/es/cursos-presenciales/",
-    url: "https://www.saregune.net/es/#"
+    url: "https://www.saregune.net/es/cursos-presenciales/"
+  },
+  {
+    categoria: "Cursos",
+    tipo: "requisitos_inscripcion",
+    nombre: "Requisitos de inscripción para Cursos Básicos",
+    descripcion: "Información sobre los datos necesarios para inscribirse a los cursos básicos.",
+    pregunta: "¿Qué requisitos se necesitan para inscribirse en los cursos básicos?",
+    respuesta: "Para inscribirse en los cursos básicos solo se requiere proporcionar nombre, apellidos y número de teléfono. No se exige empadronamiento ni ninguna otra documentación.",
+    inscripcion: "La inscripción es presencial en Saregune, en Cantón de Santa María, 4.",
+    url: "https://www.saregune.net/es/cursos-presenciales/"
   },
 
-  // CURSOS BÁSICOS 
+  // CURSOS BÁSICOS (7 CURSOS INDEPENDIENTES Y EXACTOS)
   {
     categoria: "Cursos",
     tipo: "basico",
     nombre: "Iniciación a la informática",
-    descripcion: "Para aprender a familiarizarse con el ordenador y adquirir conocimientos digitales básicos.",
+    descripcion: "Para aprender a familiarizarse con el ordenador y adquirir conocimientos digitales básicos desde cero.",
     horarios: {
       octubre: ["09:00–10:15", "10:30–11:45", "13:30–14:45", "16:30–17:45"],
       noviembre: ["10:30–11:45", "12:00–13:15", "15:00–16:15", "18:00–19:15"],
       diciembre: ["10:30–11:45", "13:30–14:45", "16:30–17:45", "18:00–19:15"]
     },
-    inscripcion: "La inscripción es presencial en Saregune, en Cantón de Santa María, 4.",
+    inscripcion: "La inscripción es presencial en Saregune (Cantón de Santa María, 4). Solo se necesita nombre, apellidos y teléfono (sin empadronamiento).",
     pregunta: "Curso Iniciación a la informática",
     respuesta: "Curso básico para aprender a usar el ordenador desde cero. Disponibilidad en octubre, noviembre y diciembre con varios horarios de mañana y tarde. Más detalles en: https://www.saregune.net/es/cursos-presenciales/",
     url: "https://www.saregune.net/es/cursos-presenciales/"
@@ -57,46 +67,91 @@ const todosLosConocimientos = [
   {
     categoria: "Cursos",
     tipo: "basico",
-    nombre: "Procesador de textos y Hoja de cálculo",
-    descripcion: "Aprende a redactar documentos y organizar datos en tablas.",
+    nombre: "Procesador de textos",
+    descripcion: "Aprende a redactar, editar y dar formato a documentos de texto como cartas o currículums.",
     horarios: {
       octubre: ["15:00–16:15"],
       noviembre: ["13:30–14:45"],
       diciembre: ["12:00–13:15"]
     },
-    inscripcion: "La inscripción es presencial en Saregune, en Cantón de Santa María, 4.",
-    pregunta: "Curso Procesador de textos y Hoja de cálculo",
-    respuesta: "Aprende a crear documentos de texto y gestionar plantillas u hojas de cálculo. Consulta más información en: https://www.saregune.net/es/cursos-presenciales/",
+    inscripcion: "La inscripción es presencial en Saregune (Cantón de Santa María, 4). Solo se necesita nombre, apellidos y teléfono (sin empadronamiento).",
+    pregunta: "Curso Procesador de textos",
+    respuesta: "Aprende a crear y formatear documentos de texto en ordenador. Consulta más información en: https://www.saregune.net/es/cursos-presenciales/",
     url: "https://www.saregune.net/es/cursos-presenciales/"
   },
   {
     categoria: "Cursos",
     tipo: "basico",
-    nombre: "Multimedia online y Trámites fáciles",
-    descripcion: "Aprende a hacer trámites por internet y usar herramientas multimedia.",
+    nombre: "Hoja de cálculo",
+    descripcion: "Aprende a organizar datos, gestionar tablas y realizar cálculos sencillos.",
+    horarios: {
+      octubre: ["15:00–16:15"],
+      noviembre: ["13:30–14:45"],
+      diciembre: ["12:00–13:15"]
+    },
+    inscripcion: "La inscripción es presencial en Saregune (Cantón de Santa María, 4). Solo se necesita nombre, apellidos y teléfono (sin empadronamiento).",
+    pregunta: "Curso Hoja de cálculo",
+    respuesta: "Curso dedicado al aprendizaje de tablas y hojas de cálculo para organizar información. Más detalles en: https://www.saregune.net/es/cursos-presenciales/",
+    url: "https://www.saregune.net/es/cursos-presenciales/"
+  },
+  {
+    categoria: "Cursos",
+    tipo: "basico",
+    nombre: "Multimedia online",
+    descripcion: "Descubre herramientas digitales para visualizar, editar y gestionar contenidos multimedia en línea.",
     horarios: {
       octubre: ["12:00–13:15"],
       noviembre: ["09:00–10:15"],
       diciembre: ["15:00–16:15"]
     },
-    inscripcion: "La inscripción es presencial en Saregune, en Cantón de Santa María, 4.",
-    pregunta: "Curso Multimedia online y Trámites fáciles",
-    respuesta: "Para realizar gestiones por internet cotidianas de forma sencilla. Más detalles en: https://www.saregune.net/es/cursos-presenciales/",
+    inscripcion: "La inscripción es presencial en Saregune (Cantón de Santa María, 4). Solo se necesita nombre, apellidos y teléfono (sin empadronamiento).",
+    pregunta: "Curso Multimedia online",
+    respuesta: "Curso práctico para usar recursos multimedia en internet de forma sencilla. Más detalles en: https://www.saregune.net/es/cursos-presenciales/",
     url: "https://www.saregune.net/es/cursos-presenciales/"
   },
   {
     categoria: "Cursos",
     tipo: "basico",
-    nombre: "Recursos Google y Presentaciones",
-    descripcion: "Descubre Drive, Gmail y la creación de presentaciones visuales.",
+    nombre: "Trámites fáciles",
+    descripcion: "Aprende a realizar gestiones y trámites administrativos en línea con certificados digitales y BakQ.",
+    horarios: {
+      octubre: ["12:00–13:15"],
+      noviembre: ["09:00–10:15"],
+      diciembre: ["15:00–16:15"]
+    },
+    inscripcion: "La inscripción es presencial en Saregune (Cantón de Santa María, 4). Solo se necesita nombre, apellidos y teléfono (sin empadronamiento).",
+    pregunta: "Curso Trámites fáciles",
+    respuesta: "Realiza gestiones en internet de forma segura con certificado digital o BakQ. Consulta más detalles en: https://www.saregune.net/es/cursos-presenciales/",
+    url: "https://www.saregune.net/es/cursos-presenciales/"
+  },
+  {
+    categoria: "Cursos",
+    tipo: "basico",
+    nombre: "Recursos Google",
+    descripcion: "Aprende a gestionar la nube con herramientas como Google Drive y Gmail.",
     horarios: {
       octubre: ["18:00–19:15"],
       noviembre: ["16:30–17:45"],
       diciembre: ["09:00–10:15"]
     },
-    inscripcion: "La inscripción es presencial en Saregune, en Cantón de Santa María, 4.",
-    pregunta: "Curso Recursos Google y Presentaciones",
-    respuesta: "Domina las herramientas de la nube de Google y crea diapositivas. Más detalles en: https://www.saregune.net/es/cursos-presenciales/",
+    inscripcion: "La inscripción es presencial en Saregune (Cantón de Santa María, 4). Solo se necesita nombre, apellidos y teléfono (sin empadronamiento).",
+    pregunta: "Curso Recursos Google",
+    respuesta: "Aprende a utilizar las herramientas en la nube de Google como Drive y Gmail. Más detalles en: https://www.saregune.net/es/cursos-presenciales/",
+    url: "https://www.saregune.net/es/cursos-presenciales/"
+  },
+  {
+    categoria: "Cursos",
+    tipo: "basico",
+    nombre: "Presentaciones",
+    descripcion: "Aprende a diseñar y crear presentaciones digitales y diapositivas visuales atractivas.",
+    horarios: {
+      octubre: ["18:00–19:15"],
+      noviembre: ["16:30–17:45"],
+      diciembre: ["09:00–10:15"]
+    },
+    inscripcion: "La inscripción es presencial en Saregune (Cantón de Santa María, 4). Solo se necesita nombre, apellidos y teléfono (sin empadronamiento).",
+    pregunta: "Curso Presentaciones",
+    respuesta: "Curso práctico para aprender a crear diapositivas y presentaciones visuales. Más detalles en: https://www.saregune.net/es/cursos-presenciales/",
     url: "https://www.saregune.net/es/cursos-presenciales/"
   },
 
@@ -187,7 +242,7 @@ const todosLosConocimientos = [
     categoria: "Proyectos",
     tipo: "television_barrio",
     nombre: "Auzo.tv - Televisión del barrio",
-    descripcion: "Canal comunitario de televisión e iniciativas audiovisual creadas por y para la comunidad del barrio.",
+    descripcion: "Canal comunitario de televisión e iniciativas audiovisuales creadas por y para la comunidad del barrio.",
     pregunta: "¿Qué es Auzo.tv?",
     respuesta: "Auzo.tv es la televisión comunitaria del Casco Viejo de Vitoria-Gasteiz, un canal para visibilizar proyectos del barrio. Visita la web en: https://www.saregune.net/es/auzo-tv-television-del-barrio/",
     url: "https://www.saregune.net/es/auzo-tv-television-del-barrio/"
@@ -211,7 +266,7 @@ async function sembrarBaseDatos() {
     const coleccion = db.collection('conocimientos');
     await coleccion.deleteMany({});
     await coleccion.insertMany(todosLosConocimientos);
-    console.log("¡Base de datos cargada correctamente con los enlaces, proyectos, recursos y blogs!");
+    console.log("¡Base de datos actualizada correctamente con los 7 cursos básicos exactos!");
     process.exit(0);
   } catch (error) {
     console.error("Error al cargar la base de datos:", error);

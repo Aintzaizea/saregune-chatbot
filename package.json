@@ -15,7 +15,7 @@
     "mongodb": "^7.7.0",
     "openai": "^6.49.0"
   },
-  "description": "",
+  "description": "## Descripción",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Aintzaizea/saregune-chatbot.git"
@@ -23,5 +23,6 @@
   "bugs": {
     "url": "https://github.com/Aintzaizea/saregune-chatbot/issues"
   },
-  "homepage": "https://github.com/Aintzaizea/saregune-chatbot#readme"
+  "homepage": "https://github.com/Aintzaizea/saregune-chatbot#readme",
+  "devDependencies": {}
 }

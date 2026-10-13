@@ -17,3 +17,4 @@ router.put('/conocimientos/:id', actualizarConocimiento);
 router.delete('/conocimientos/:id', eliminarConocimiento);
 
 export default router;
+

@@ -117,37 +117,72 @@ function agregarMensaje(texto, quien) {
 // Detecta teléfonos españoles de 9 cifras que empiezan por 6 o 9, con cualquier agrupación
 // y cualquier tipo de espacio (también los espacios "no separables" que a veces escribe la IA).
 const PATRON_TELEFONO = /\b[69](?:[\s.-]?\d){8}\b/g;
+const PATRON_DIRECCION = /\bCant[oó]n de Santa Mar[ií]a,?\s*4(?:\s*\(Vitoria-Gasteiz\))?/gi;
+const PATRON_URL = /\b(?:https?:\/\/|www\.)[^\s<>"']+/gi;
+const PATRON_ENLACE = new RegExp(
+  `\\[([^\\]]+)\\]\\((https?:\\/\\/[^)\\s]+)\\)|${PATRON_URL.source}|${PATRON_DIRECCION.source}|${PATRON_TELEFONO.source}`,
+  'gi'
+);
+const URL_GOOGLE_MAPS = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  'Saregune, Cantón de Santa María, 4, Vitoria-Gasteiz'
+)}`;
 
-// Escribe un texto en un párrafo convirtiendo los teléfonos en enlaces:
-// los móviles (6xx) abren WhatsApp en una ventana nueva y los fijos (9xx) llaman.
+// Escribe el texto convirtiendo la dirección y los teléfonos en enlaces.
 // Se construye con nodos (no con innerHTML) para que nada del texto se ejecute como HTML.
 function escribirConEnlaces(elemento, texto) {
   texto = String(texto ?? '');
   elemento.textContent = ''; // vacía el párrafo
   let ultimo = 0;
 
-  for (const coincidencia of texto.matchAll(PATRON_TELEFONO)) {
-    const numero = coincidencia[0];
+  for (const coincidencia of texto.matchAll(PATRON_ENLACE)) {
+    const enlaceMarkdown = coincidencia[2] !== undefined;
+    const coincidenciaCompleta = coincidencia[0];
+    const valor = enlaceMarkdown
+      ? coincidencia[2]
+      : /^(?:https?:\/\/|www\.)/i.test(coincidenciaCompleta)
+        ? coincidenciaCompleta.replace(/[.,!?;:)\]}]+$/, '')
+        : coincidenciaCompleta;
     const inicio = coincidencia.index;
 
-    // Texto normal que hay antes del número (append lo añade como texto, no como HTML).
+    // Texto normal que hay antes del enlace (append lo añade como texto, no como HTML).
     elemento.append(texto.slice(ultimo, inicio));
 
-    const digitos = numero.replace(/\D/g, ''); // solo las cifras
     const enlace = document.createElement('a');
-    enlace.textContent = numero;
+    const etiquetaMarkdown = enlaceMarkdown ? coincidencia[1].trim() : '';
 
-    if (digitos.startsWith('6')) {
-      enlace.href = `https://wa.me/34${digitos}`;
+    if (/^(?:https?:\/\/|www\.)/i.test(valor)) {
+      enlace.href = /^www\./i.test(valor) ? `https://${valor}` : valor;
+      const dominio = valor.replace(/^https?:\/\//i, '').replace(/^www\./i, '').split(/[/?#]/)[0];
+      const textoAmigable = /(?:^|\.)saregune\.net$/i.test(dominio)
+        ? 'Ver más'
+        : 'Localización';
+      enlace.textContent = etiquetaMarkdown && !/^(?:https?:\/\/|www\.)/i.test(etiquetaMarkdown)
+        ? etiquetaMarkdown
+        : textoAmigable;
       enlace.target = '_blank';
       enlace.rel = 'noopener noreferrer';
-      enlace.setAttribute('aria-label', `Escribir por WhatsApp al ${numero}`);
+      enlace.setAttribute('aria-label', `Abrir ${enlace.textContent}`);
+    } else if (/^\D/.test(valor)) {
+      enlace.textContent = valor;
+      enlace.href = URL_GOOGLE_MAPS;
+      enlace.target = '_blank';
+      enlace.rel = 'noopener noreferrer';
+      enlace.setAttribute('aria-label', `Ver ${valor} en Google Maps`);
     } else {
-      enlace.href = `tel:+34${digitos}`;
+      enlace.textContent = valor;
+      const digitos = valor.replace(/\D/g, ''); // solo las cifras
+      if (digitos.startsWith('6')) {
+        enlace.href = `https://wa.me/34${digitos}`;
+        enlace.target = '_blank';
+        enlace.rel = 'noopener noreferrer';
+        enlace.setAttribute('aria-label', `Escribir por WhatsApp al ${valor}`);
+      } else {
+        enlace.href = `tel:+34${digitos}`;
+      }
     }
 
     elemento.append(enlace);
-    ultimo = inicio + numero.length;
+    ultimo = inicio + (enlaceMarkdown ? coincidenciaCompleta.length : valor.length);
   }
 
   // Texto que queda después del último número.

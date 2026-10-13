@@ -393,7 +393,7 @@ main {
   border-radius: 16px 16px 4px 16px;
 }
 
-/* Enlaces dentro de las burbujas (teléfonos): subrayados y en negrita */
+/* Enlaces de las burbujas (teléfono, WhatsApp, Google Maps y otras webs). */
 .mensaje a {
   color: var(--color-principal-oscuro);
   font-weight: 700;

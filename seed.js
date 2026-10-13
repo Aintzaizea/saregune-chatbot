@@ -16,15 +16,14 @@ const todosLosConocimientos = [
     categoria: "Contacto",
     tipo: "contacto",
     pregunta: "¿Dónde está Saregune y cómo contactar?",
-    respuesta: "Estamos en Saregune, en Cantón de Santa María, 4 (Vitoria-Gasteiz). Horario: lunes a viernes de 9:00 a 18:00. Teléfono: 945 03 99 81 | WhatsApp: 688 85 16 41. Correo (solo si lo solicitan): info@saregune.net. Puedes ver la ubicación exacta en Google Maps: https://www.google.com/maps/search/?api=1&query=Saregune+Canton+de+Santa+Maria+4+Vitoria-Gasteiz",
-    url: "https://www.google.com/maps/search/?api=1&query=Saregune+Canton+de+Santa+Maria+4+Vitoria-Gasteiz"
+    respuesta: "Estamos en Saregune, en Cantón de Santa María, 4 (Vitoria-Gasteiz). Horario: lunes a viernes de 9:00 a 18:00. Teléfono: 945 03 99 81 | WhatsApp: 688 85 16 41. Correo (solo si lo solicitan): info@saregune.net."
+
   },
   {
     categoria: "Información General",
     tipo: "horario_centro",
     pregunta: "¿Qué horarios hay? ¿Cuál es el horario del centro? ¿A qué hora abre Saregune?",
-    respuesta: "El centro está abierto de lunes a viernes, de 9:00 a 18:00. Estamos en Cantón de Santa María, 4, Vitoria-Gasteiz. Ver en Google Maps: https://www.google.com/maps/search/?api=1&query=Saregune+Canton+de+Santa+Maria+4+Vitoria-Gasteiz",
-    url: "https://www.google.com/maps/search/?api=1&query=Saregune+Canton+de+Santa+Maria+4+Vitoria-Gasteiz"
+    respuesta: "El centro está abierto de lunes a viernes, de 9:00 a 18:00. Estamos en Cantón de Santa María, 4, Vitoria-Gasteiz."
   },
 
   // MENÚ GENERAL DE CURSOS Y REQUISITOS DE INSCRIPCIÓN

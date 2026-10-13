@@ -1,3 +1,4 @@
+dotenv.config();
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -7,7 +8,7 @@ import basicAuth from 'express-basic-auth';
 import conocimientosRoutes from './src/routes/conocimientosRoutes.js';
 import chatRoutes from './src/routes/chatRoutes.js'; // creado por lili
 
-dotenv.config();
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

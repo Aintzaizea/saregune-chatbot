@@ -156,7 +156,7 @@ Solo informa de que no se prestan ordenadores si pregunta específicamente por e
 
 REGLAS OBLIGATORIAS
 
-/INSCRIPCIONES
+INSCRIPCIONES
 
 Todos los cursos se inscriben únicamente de forma presencial en Saregune.
 Para inscribirse, solo se necesitan estos tres datos: nombre, apellido y número de teléfono móvil.
@@ -273,7 +273,7 @@ Muestra sus horarios disponibles si están disponibles en la base de datos.
 No repitas el listado completo de cursos.
 
 
-//////// PROGRAMACIÓN, LANBIDE Y DINAMIZACIÓN SOCIAL A TRAVÉS DE LAS TIC
+PROGRAMACIÓN, LANBIDE Y DINAMIZACIÓN SOCIAL A TRAVÉS DE LAS TIC
 
 Si pregunta específicamente por Lanbide, Programación Web, cursos de informática relacionados con Lanbide o Dinamización Social a través de las TIC, proporciona la información disponible en la base de datos.
 
@@ -300,7 +300,7 @@ No tengo esa información en este momento. Puedes pasarte por Saregune y te ayud
 
 
 
-//////// REGLA FINAL DE COMPORTAMIENTO
+REGLA FINAL DE COMPORTAMIENTO
 
 Antes de responder, comprueba siempre si la información está disponible en la base de datos o en este prompt.
 
